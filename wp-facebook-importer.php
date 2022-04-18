@@ -19,8 +19,7 @@
  * Version:           1.0.0
  * Author:            Jens Wiecker
  * Author URI:        https://wwdh.de
- * License:           GPL-2.0+
- * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * License:           MIT License
  * Text Domain:       wp-facebook-importer
  * Domain Path:       /languages
  * Requires PHP:      7.4

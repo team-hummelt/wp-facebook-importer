@@ -323,4 +323,22 @@ class WP_Facebook_Importer_Helper
         }
         return 1;
     }
+
+    /**
+     * @param string $type
+     * @param string $message
+     */
+    public function wwdh_set_api_log(string $type, string $message): void
+    {
+        $logDir = $this->main->get_api_dir() . 'log' . DIRECTORY_SEPARATOR;
+
+        if(!is_dir($logDir)){
+            mkdir($logDir, 0755, true);
+        }
+        $logFile = 'api.log';
+        $msg = $type . '|' . current_time('mysql') . '|' . $message;
+        $msg .= "\r\n";
+
+        @file_put_contents($logDir . $logFile, $msg, FILE_APPEND);
+    }
 }

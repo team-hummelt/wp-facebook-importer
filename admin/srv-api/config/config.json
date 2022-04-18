@@ -1,0 +1,27 @@
+{
+  "name": "WP Facebook-Importer",
+  "type": "plugin",
+  "basename": "",
+  "rest_aktiv" : "1",
+  "rest_url" : "",
+  "config_id" : "",
+  "config_pw" : "",
+  "site_url" : "",
+  "license": "",
+  "update": {
+    "update_url_git": "",
+    "update_branch": "release",
+    "branch_name": "master",
+    "update_aktiv": "0",
+    "update_type": "1"
+  },
+
+  "settings": {
+    "show_license_menu": "0"
+  },
+
+  "aktivierungs_file_path": "",
+  "aktivierungs_file": "",
+  "aktiv":"1",
+  "api_server_url" : ""
+}

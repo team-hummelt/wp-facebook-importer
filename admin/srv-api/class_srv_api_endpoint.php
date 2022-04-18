@@ -1,24 +1,38 @@
 <?php
-namespace WPFacebook\Importer;
+
+namespace FBApiPlugin\SrvApi\Endpoint;
+
 use stdClass;
-use Wp_Facebook_Importer;
 use WP_Error;
+use Wp_Facebook_Importer;
 use WP_REST_Controller;
 use WP_REST_Request;
 use WP_REST_Response;
 use WP_REST_Server;
+use WPFacebook\Importer\WP_Facebook_Importer_Defaults;
 
 /**
- * Plugin ENDPOINT
+ * SRV-API ENDPOINT
  *
  * @link       https://wwdh.de
  * @since      1.0.0
  *
  */
+
+
 defined('ABSPATH') or die();
 
-class Facebook_Importer_Rest_Endpoint extends WP_REST_Controller
+class Srv_Api_Endpoint extends WP_REST_Controller
 {
+
+    /**
+     * Store plugin main class to allow public access.
+     *
+     * @since    1.0.0
+     * @access   private
+     * @var Wp_Facebook_Importer $main The main class.
+     */
+    private Wp_Facebook_Importer $main;
 
     /**
      * The ID of this plugin.
@@ -30,75 +44,39 @@ class Facebook_Importer_Rest_Endpoint extends WP_REST_Controller
     private string $basename;
 
     /**
-     * The FB-API Settings.
+     * The version of this plugin.
      *
      * @since    1.0.0
      * @access   private
-     * @var      object $settings The FB-API Settings for this Plugin
+     * @var      string $version The current version of this plugin.
      */
-    private object $settings;
+    private string $version;
 
     /**
-     * The ID of Cronjob.
+     * TRAIT of Default Settings.
      *
      * @since    1.0.0
-     * @access   private
-     * @var      string $cronjob_id The ID of this plugin.
      */
-    private string $cronjob_id;
+    use WP_Facebook_Importer_Defaults;
 
-    /**
-     * Store plugin main class to allow public access.
-     *
-     * @since    1.0.0
-     * @access   private
-     * @var Wp_Facebook_Importer $main The main class.
-     */
-    private Wp_Facebook_Importer $main;
-
-    public function __construct(string $plugin_name, Wp_Facebook_Importer $main, $cronId ) {
-        $this->basename = $plugin_name;
+    public function __construct($plugin_name, $plugin_version, Wp_Facebook_Importer $main)
+    {
         $this->main = $main;
-        $this->cronjob_id = $cronId;
-        $this->settings = (object) [];
-        $settings = $this->main->get_settings();
-        if($settings){
-            $this->settings = $settings;
-        }
+        $this->basename = $plugin_name;
+        $this->version = $plugin_version;
+
     }
 
     /**
      * Register the routes for the objects of the controller.
      */
-
     public function register_routes()
     {
-        $version = '2';
-        $namespace = 'fb-importer/v' . $version;
+
+        $version = $this->version;
+        $namespace = 'plugin/' . $this->basename . '/v' . $version;
         $base = '/';
 
-        @register_rest_route(
-            $namespace,
-            $base,
-            array(
-                'methods' => WP_REST_Server::READABLE,
-                'callback' => array($this, 'get_registered_items'),
-                'permission_callback' => array($this, 'permissions_check')
-            )
-        );
-
-        @register_rest_route(
-            $namespace,
-            $base . '(?P<method>[^/]+)/(?P<token>[\S^/]+)',
-            array(
-                'methods' => 'GET',
-                'callback' => array($this, 'fb_importer_api_rest_get_method_endpoint'),
-                'permission_callback' => array($this, 'permissions_check')
-            )
-        );
-
-        $version = $this->main->get_version();
-        $namespace = 'plugin/' . $this->basename . '/v' . $version;
         @register_rest_route(
             $namespace,
             $base,
@@ -129,6 +107,7 @@ class Facebook_Importer_Rest_Endpoint extends WP_REST_Controller
         );
     }
 
+
     /**
      * Get a collection of items.
      *
@@ -144,53 +123,6 @@ class Facebook_Importer_Rest_Endpoint extends WP_REST_Controller
 
     }
 
-    /**
-     * Get one item from the collection.
-     *
-     * @param WP_REST_Request $request Full data about the request.
-     *
-     * @return WP_Error|WP_REST_Response
-     */
-    public function fb_importer_api_rest_get_method_endpoint(WP_REST_Request $request) {
-
-        $method = $request->get_param('method');
-        $token = $request->get_param('token');
-
-        if(strtoupper(sha1($this->cronjob_id)) !== $token){
-            return new WP_Error(404, ' unknown - ID failed');
-        }
-
-        if (!$method) {
-            return new WP_Error(404, ' unknown - Method failed');
-        }
-
-        $response = $this->make_api_job($method);
-
-        $item_data = new WP_REST_Response($response, 200);
-        $item_data->add_link(
-            'self',
-            rest_url('fb-importer/v2/' . $method.'/'.$token)
-        );
-
-        return $item_data;
-    }
-
-
-    private function make_api_job($method):array
-    {
-        $response = [];
-        switch ($method){
-            case 'cron':
-              //  do_action('importer_fb_api_plugin_sync');
-                    $response = [
-                        'test' => 'HELLO'
-                    ];
-                break;
-        }
-
-        return $response;
-    }
-
     public function fb_importer_api_rest_post_endpoint(WP_REST_Request $request) {
         $data = $this->get_item($request);
         return rest_ensure_response($data);
@@ -202,13 +134,15 @@ class Facebook_Importer_Rest_Endpoint extends WP_REST_Controller
      *
      * @return WP_Error|WP_REST_Response
      */
+
+
     public function fb_importer_api_rest_endpoint()
     {
         $response = new WP_REST_Response();
         $data = [
             'status' => $response->get_status(200),
             'slug' => $this->basename,
-            'version' => $this->main->get_version()
+            'version' => $this->version
         ];
 
         return rest_ensure_response($data);
@@ -247,6 +181,7 @@ class Facebook_Importer_Rest_Endpoint extends WP_REST_Controller
 
     }
 
+
     /**
      * Check if a given request has access.
      *
@@ -256,4 +191,6 @@ class Facebook_Importer_Rest_Endpoint extends WP_REST_Controller
     {
         return '__return_true';
     }
+
+
 }

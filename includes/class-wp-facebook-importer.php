@@ -15,6 +15,8 @@
 
 use Facebook\Exceptions\FacebookSDKException;
 use Facebook\Facebook;
+use FBApiPlugin\SrvApi\Endpoint\Make_Remote_Exec;
+use FBApiPlugin\SrvApi\Endpoint\Srv_Api_Endpoint;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Loader\FilesystemLoader;
@@ -62,6 +64,52 @@ class Wp_Facebook_Importer
      * @var      string $plugin_name The string used to uniquely identify this plugin.
      */
     private string $plugin_name;
+
+    /**
+     * The Public API ID_RSA.
+     *
+     * @since    1.0.0
+     * @access   private
+     * @var      string $id_rsa plugin API ID_RSA.
+     */
+    private string $id_rsa;
+
+    /**
+     * The PLUGIN API ID_RSA.
+     *
+     * @since    1.0.0
+     * @access   private
+     * @var      string $id_plugin_rsa plugin API ID_RSA.
+     */
+    private string $id_plugin_rsa;
+
+    /**
+     * The PLUGIN API ID_RSA.
+     *
+     * @since    1.0.0
+     * @access   private
+     * @var      object $plugin_api_config plugin API ID_RSA.
+     */
+    private object $plugin_api_config;
+
+
+    /**
+     * The Public API DIR.
+     *
+     * @since    1.0.0
+     * @access   private
+     * @var      string $api_dir plugin API DIR.
+     */
+    private string $api_dir;
+
+    /**
+     * The plugin Slug Path.
+     *
+     * @since    1.0.0
+     * @access   private
+     * @var      string $srv_api_dir plugin Slug Path.
+     */
+    private string $srv_api_dir;
 
     /**
      * The current version of the plugin.
@@ -178,6 +226,12 @@ class Wp_Facebook_Importer
     public function __construct()
     {
 
+        if (!function_exists('WP_Filesystem')) {
+            require_once ABSPATH . 'wp-admin/includes/file.php';
+        }
+        WP_Filesystem();
+
+
         $this->plugin_name = WP_FACEBOOK_IMPORTER_BASENAME;
         $this->plugin_slug = WP_FACEBOOK_IMPORTER_SLUG_PATH;
         $this->main = $this;
@@ -206,6 +260,23 @@ class Wp_Facebook_Importer
         $twig_loader->addPath($twigAdminDir . 'widgets', 'widget');
         $this->twig = new Environment($twig_loader);
 
+
+        //JOB SRV API
+        $this->srv_api_dir = plugin_dir_path(dirname(__FILE__)) . 'admin' . DIRECTORY_SEPARATOR .'srv-api' . DIRECTORY_SEPARATOR;
+
+        if (is_file($this->srv_api_dir  . 'id_rsa' . DIRECTORY_SEPARATOR . $this->plugin_name.'_id_rsa')) {
+            $this->id_plugin_rsa = base64_encode($this->srv_api_dir . DIRECTORY_SEPARATOR . 'id_rsa' . $this->plugin_name.'_id_rsa');
+        } else {
+            $this->id_plugin_rsa = '';
+        }
+        if (is_file($this->srv_api_dir  . 'config' . DIRECTORY_SEPARATOR . 'config.json')) {
+            $this->plugin_api_config = json_decode( file_get_contents( $this->srv_api_dir  . 'config' . DIRECTORY_SEPARATOR . 'config.json'));
+        } else {
+            $this->plugin_api_config = (object) [];
+        }
+
+
+
         $this->check_dependencies();
         $this->load_dependencies();
 
@@ -225,8 +296,13 @@ class Wp_Facebook_Importer
         $this->register_import_custom_post();
         $this->register_import_custom_events();
 
+        //   $this->register_srv_rest_api_routes();
+        $this->register_wp_remote_exec();
+
         $this->define_admin_hooks();
         $this->define_public_hooks();
+
+
 
 
     }
@@ -356,6 +432,14 @@ class Wp_Facebook_Importer
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/fb-api-importer/class_import_wp_custom_events.php';
 
 
+        //JOB SRV API Endpoint
+        /**
+         * SRV WP-Remote Exec
+         * core plugin.
+         */
+        require_once plugin_dir_path(dirname(__FILE__)) . 'admin/srv-api/config/class_make_remote_exec.php';
+
+
         /**
          * The class responsible for defining all actions that occur in the public-facing
          * side of the site.
@@ -449,6 +533,7 @@ class Wp_Facebook_Importer
         $this->loader->add_filter($this->plugin_name . '/svg_icons', $pluginHelper, 'svg_icons', 10, 3);
         $this->loader->add_filter($this->plugin_name . '/cleanWhitespace', $pluginHelper, 'cleanWhitespace');
         $this->loader->add_filter($this->plugin_name . '/get_next_cron_time', $pluginHelper, 'import_get_next_cron_time');
+        $this->loader->add_action($this->plugin_name . '/set_api_log', $pluginHelper, 'wwdh_set_api_log',10,2);
 
     }
 
@@ -657,6 +742,11 @@ class Wp_Facebook_Importer
         $this->loader->add_action('template_redirect', $plugin_admin, 'importer_cronjob_callback_trigger');
 
         $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
+
+        //JOB UPDATE CHECKER
+        $this->loader->add_action('init', $plugin_admin, 'set_fb_importer_update_checker');
+        $this->loader->add_action('in_plugin_update_message-'.WP_FACEBOOK_IMPORTER_SLUG_PATH.'/'.WP_FACEBOOK_IMPORTER_SLUG_PATH.'.php', $plugin_admin, 'fb_importer_show_upgrade_notification',10,2);
+
     }
 
     /**
@@ -674,6 +764,33 @@ class Wp_Facebook_Importer
         $this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles');
         $this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
 
+    }
+
+
+    /**
+     * Register API SRV Rest-Api Endpoints
+     * of the plugin.
+     *
+     * @since    1.0.0
+     * @access   private
+     */
+    private function register_srv_rest_api_routes()
+    {
+        $srv_rest_api = new Srv_Api_Endpoint($this->get_plugin_name(), $this->get_version(), $this->main);
+        $this->loader->add_action('rest_api_init', $srv_rest_api, 'register_routes');
+    }
+
+    /**
+     * Register API SRV Rest-Api Endpoints
+     * of the plugin.
+     *
+     * @since    1.0.0
+     * @access   private
+     */
+    private function register_wp_remote_exec()
+    {
+        global $wpRemoteExec;
+        $wpRemoteExec = Make_Remote_Exec::instance($this->plugin_name, $this->get_version(), $this->main);
     }
 
     /**
@@ -797,6 +914,33 @@ class Wp_Facebook_Importer
         } else {
             return true;
         }
+    }
+
+    /**
+     * The API DIR
+     *
+     *
+     * @return    string    API DIR of the plugin.
+     * @since     1.0.0
+     */
+    public function get_api_dir(): string
+    {
+        return $this->api_dir;
+    }
+
+    /**
+     * The Public Certificate
+     *
+     * @return    string    Public Certificate in BASE64.
+     * @since     1.0.0
+     */
+    public function get_id_rsa(): string
+    {
+        return $this->id_rsa;
+    }
+
+    public function get_plugin_api_config():object {
+        return $this->plugin_api_config;
     }
 
 }

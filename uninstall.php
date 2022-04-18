@@ -42,6 +42,7 @@ $wpdb->query($sql);
 delete_option("wp-facebook-importer/jal_db_version");
 delete_option('fb_importer_user_role');
 delete_option('fb_cronjob_settings');
+delete_option('wp-facebook-importer_update_config');
 
 //DELETE FP-CUSTOM POST-TYPE
 if( !function_exists( 'plugin_prefix_unregister_post_type' ) ) {

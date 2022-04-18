@@ -256,7 +256,6 @@ class Wp_Facebook_Importer_Admin
     //Options Page
     public function wp_facebook_importer_options_page(): void
     {
-
         $siteLang = $this->get_plugin_defaults('language_formulare');
         $selectRole = $this->get_plugin_defaults('select_user_role');
         $twigData = [
@@ -278,6 +277,7 @@ class Wp_Facebook_Importer_Admin
 
     public function wp_facebook_importer_load_ajax_admin_options_script(): void
     {
+
         add_action('admin_enqueue_scripts', array($this, 'enqueue_scripts'));
         $title_nonce = wp_create_nonce('facebook_import_admin_handle');
 
@@ -322,6 +322,46 @@ class Wp_Facebook_Importer_Admin
         if (get_query_var('cronjob') === $this->main->get_cronjob_exec_id()) {
             Wp_Importer_Open_Socket::instance($this->basename, $this->main);
             exit();
+        }
+    }
+
+
+    /**
+     * Register the Update-Checker for the Plugin.
+     *
+     * @since    1.0.0
+     */
+    public function set_fb_importer_update_checker()
+    {
+
+        if (get_option("{$this->basename}_update_config") && get_option($this->basename . '_update_config')->update->update_aktiv) {
+            $postSelectorUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+                get_option("{$this->basename}_update_config")->update->update_url_git,
+                WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . $this->basename . DIRECTORY_SEPARATOR . $this->basename . '.php',
+                $this->basename
+            );
+
+            switch (get_option("{$this->basename}_update_config")->update->update_type) {
+                case '1':
+                    $postSelectorUpdateChecker->getVcsApi()->enableReleaseAssets();
+                    break;
+                case '2':
+                    $postSelectorUpdateChecker->setBranch(get_option("{$this->basename}_update_config")->update->branch_name);
+                    break;
+            }
+        }
+    }
+
+    /**
+     * add plugin upgrade notification
+     */
+
+    public function fb_importer_show_upgrade_notification( $current_plugin_metadata, $new_plugin_metadata ) {
+
+        if ( isset( $new_plugin_metadata->upgrade_notice ) && strlen( trim( $new_plugin_metadata->upgrade_notice ) ) > 0 ) {
+            // Display "upgrade_notice".
+            echo sprintf( '<span style="background-color:#d54e21;padding:10px;color:#f9f9f9;margin-top:10px;display:block;"><strong>%1$s: </strong>%2$s</span>', esc_attr('Important Upgrade Notice', 'google-rezensionen-api'), esc_html( rtrim( $new_plugin_metadata->upgrade_notice ) ) );
+
         }
     }
 
