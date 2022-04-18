@@ -1,0 +1,69 @@
+{% extends "@layout/admin-layout.twig" %}
+{% block content %}
+    <div class="border rounded shadow-sm p-3 bg-custom-gray" style="min-height: 65vh">
+        <form class="sendAdminAjaxForm">
+            <hr>
+            <h6 class="card-title d-flex align-items-center">
+            <span>
+            <i class="show-cronjob-settings font-blue bi bi-arrow-down-circle"></i> {{ l.label_role_header }}
+                </span>
+                <span class="update_user_role ajax-status-spinner  ms-auto"></span>
+            </h6>
+            <hr>
+            <div class="row pt-3 g-2">
+                <input type="hidden" name="method" value="update_user_role">
+                <div class="col-xl-6 col">
+                    <div class="mb-3">
+                        <label for="capabilitySelect" class="form-label mb-1 strong-font-weight">{{ l.User_role }}
+                            :</label>
+                        <select name="user_role" id="capabilitySelect" class="form-select no-blur">
+                            {% for s in select_role %}
+                                <option value="{{ s.value }}"
+                                        {% if s.value == set_role %}selected{% endif %}>{{ s.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <hr>
+        <div class="cronjob-settings d-none">
+            <div class="col-xxl-8 col-xl-10 col-12 mx-auto">
+                <div class="card border-danger pb-2">
+                    <div class="card-body">
+                        <form class="admin-ajax-formular">
+                            <input type="hidden" name="method" value="cronjob_system_settings">
+                            <h5>Cronjob System-Settings</h5>
+                            <hr>
+                            <div class="row g-3 mb-3">
+                                <div class="col-xl-6 col-lg-8 col-12 mb-3">
+                                    <label for="minSleepPost" class="form-label mb-1">
+                                        Sleep after Post: <small class="small">(min 120s)</small></label>
+                                    <input type="number" min="120" name="min_sleep_post"
+                                           class="form-control no-blur" value="{{ data.min_sleep_post }}" id="minSleepPost" required>
+                                </div>
+                                <div class="col-xl-6 col-lg-8 col-12 mb-3">
+                                    <label for="minSleepEvent" class="form-label mb-1">
+                                        Sleep after Event: <small class="small">(min 60s)</small> </label>
+                                    <input type="number" min="60" name="min_sleep_event"
+                                           class="form-control no-blur" value="{{ data.min_sleep_event }}"
+                                           id="minSleepEvent" required>
+                                </div>
+                                <div class="col-xl-6 col-lg-8 col-12 mb-3">
+                                    <label for="minEventCount" class="form-label mb-1">
+                                        Import event count: <small class="small">(min 2 | max 15)</small> </label>
+                                    <input type="number" min="2" max="15" name="min_event_count"
+                                           class="form-control no-blur" value="{{ data.min_event_count }}"
+                                           id="minEventCount" required>
+                                </div>
+                            </div>
+                            <button class="btn btn-blue-outline" type="submit"><i class="bi bi-save me-1"></i> Save </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block title %} {{ l.header_options }}{% endblock %}
+{% block subtitle %} {{ l.Einstellungen }}{% endblock %}

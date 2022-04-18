@@ -2,3 +2,7 @@
  * All of the CSS for your admin-specific functionality should be
  * included in this file.
  */
+
+#toplevel_page_wp-facebook-importer-settings div.wp-menu-image.dashicons-before.dashicons-facebook::before {
+    color: #60bdff !important;
+}

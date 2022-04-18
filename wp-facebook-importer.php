@@ -15,7 +15,7 @@
  * @wordpress-plugin
  * Plugin Name:       WP Facebook Importer
  * Plugin URI:        https://wwdh.de/plugins
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Description:       Import and sync Facebook API posts.
  * Version:           1.0.0
  * Author:            Jens Wiecker
  * Author URI:        https://wwdh.de
@@ -23,6 +23,10 @@
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       wp-facebook-importer
  * Domain Path:       /languages
+ * Requires PHP:      7.4
+ * Requires at least: 5.6
+ * Tested up to:      5.9.3
+ * Stable tag:        1.0.0
  */
 
 // If this file is called directly, abort.
@@ -31,11 +35,48 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
- * Currently plugin version.
- * Start at version 1.0.0 and use SemVer - https://semver.org
- * Rename this for your plugin and update it as you release new versions.
+ * Currently DATABASE VERSION
+ * @since             1.0.0
  */
-define( 'WP_FACEBOOK_IMPORTER_VERSION', '1.0.0' );
+const WP_FACEBOOK_IMPORTER_DB_VERSION = '1.0.2';
+
+/**
+ * MIN PHP VERSION for Activate
+ * @since             1.0.0
+ */
+const WP_FACEBOOK_IMPORTER_PHP_VERSION = '7.4';
+
+/**
+ * MIN WordPress VERSION for Activate
+ * @since             1.0.0
+ */
+const WP_FACEBOOK_IMPORTER_WP_VERSION = '5.6';
+
+/**
+ * PLUGIN ROOT PATH
+ * @since             1.0.0
+ */
+define('WP_FACEBOOK_IMPORTER_PLUGIN_DIR', dirname(__FILE__));
+
+/**
+ * PLUGIN URL
+ * @since             1.0.0
+ */
+define('WP_FACEBOOK_IMPORTER_PLUGIN_URL', plugins_url('wp-facebook-importer'));
+
+/**
+ * PLUGIN SLUG
+ * @since             1.0.0
+ */
+define('WP_FACEBOOK_IMPORTER_SLUG_PATH', plugin_basename(__FILE__));
+define('WP_FACEBOOK_IMPORTER_BASENAME', plugin_basename(__DIR__));
+
+
+/**
+ * PLUGIN ADMIN DIR
+ * @since             1.0.0
+ */
+define('WP_FACEBOOK_IMPORTER_PLUGIN_ADMIN_DIR', dirname(__FILE__). DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR);
 
 /**
  * The code that runs during plugin activation.
@@ -73,10 +114,10 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-wp-facebook-importer.php';
  *
  * @since    1.0.0
  */
-function run_wp_facebook_importer() {
 
-	$plugin = new Wp_Facebook_Importer();
-	$plugin->run();
+global $wp_facebook_importer_plugin;
+$wp_facebook_importer_plugin = new Wp_Facebook_Importer();
+$wp_facebook_importer_plugin->run();
 
-}
-run_wp_facebook_importer();
+
+

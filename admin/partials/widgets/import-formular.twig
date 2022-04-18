@@ -1,0 +1,260 @@
+<div class="col-xxl-8 col-12 mb-3 mx-auto">
+    <div class="card bg-custom-gray">
+        <div class="card-body">
+
+            {% if data.type == 'update' %}
+                <h4>{{ l.formular_headline_update }} {{ data.bezeichnung }}
+                   <small class="count-imports small d-block">
+                       <hr>
+                       <div class="d-flex small-inline-list mt-3  mb-1 py-0">
+                           <span>{{ l.Imported }} {{ l.Posts }}</span>
+                           <span><b class="font-strong text-muted">:</b>
+                               <span class="importPosts">{{ data.postCount }}</span>
+                           </span>
+                       </div>
+                       <div class="d-flex small-inline-list my-0 py-0">
+                           <span>{{ l.Imported }} {{ l.Events }}</span>
+                           <span><b class="font-strong text-muted">:</b>
+                               <span class="importEvents">{{ data.eventCount }}</span>
+                           </span>
+                       </div>
+                   </small>
+                </h4>
+                <hr>
+                <div class="d-flex align-items-center flex-wrap">
+                    <button data-type="show-import-table" type="button"
+                            class="btn-form-action btn btn-blue-outline btn-sm me-1 my-2">
+                        <i class="bi bi-reply-all-fill me-1"></i>
+                        {{ l.btn_back }}
+                    </button>
+                    <button data-id="{{ data.id }}" data-type="sync_fb_posts" type="button"
+                            class="btn-form-action btn btn-blue me-1 btn-sm my-2">
+                        <i class="bi bi-cloud-arrow-down me-1"></i>
+                        {{ l.btn_sync_posts }}
+                    </button>
+                    <button data-id="{{ data.id }}" data-type="sync_fb_events" type="button"
+                            class="btn-form-action btn btn-blue me-1 btn-sm my-2">
+                        <i class="bi bi-cloud-arrow-down me-1"></i>
+                        {{ l.btn_sync_events }}
+                    </button>
+                    <button data-id="{{ data.id }}" data-type="reset_sync_date" type="button"
+                            class="btn-form-action btn btn-blue-outline btn-sm my-2 ms-xl-auto">
+                        <i class="bi bi-shuffle me-1"></i>
+                        {{ l.btn_reset_import }}
+                    </button>
+                    <i data-bs-toggle="tooltip" data-bs-placement="top" title="{{ l.tooltip_reset_sync }}"
+                            class="font-blue small cursor-pointer bi bi-info-circle-fill align-self-start ms-2"></i>
+                </div>
+                <hr>
+                <div class="liveAlertPlaceholder"></div>
+                <div class="syn_date_wrapper">
+                    <div class="d-flex align-items-center flex-wrap small">
+                        <div class="lh-1 mx-xl-0 mx-2">
+                            <i class="text-success bi bi-clock-history me-1"></i> <span>{{ l.letzte_Aktualisierung }}:
+                        {% if data.lastSynDate %}
+                                {{ l.am }}
+                                <span class="font-strong">{{ data.lastSynDate }}</span>
+                                {{ l.um }} <span class="font-strong">{{ data.lastSynTime }}</span> {{ l.Uhr }}
+                            </span>
+                            {% else %}
+                                <span>{{ l.unbekannt }}</span>
+                            {% endif %}
+                        </div>
+                        <div class="lh-1 my-xl-0 my-2 mx-xl-0 mx-2">
+                            <div class="mx-2 vr d-xl-inline-block d-none"></div>
+                            <i class="text-success bi bi-clock-history me-1"></i> <span>{{ l.letzter_Beitrag }}:
+                        {% if data.lastUntilDate %}
+                                {{ l.vom }}
+                                <span class="font-strong">{{ data.lastUntilDate }}</span>
+                                {{ l.um }} <span class="font-strong">{{ data.lastUntilTime }}</span> {{ l.Uhr }}
+                            </span>
+                            {% else %}
+                                <span>{{ l.unbekannt }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                {% else %}
+                    <h4>{{ l.formular_headline_new }}</h4>
+                    <hr>
+            {% endif %}
+            <form class="admin-ajax-formular">
+                <input type="hidden" name="method" value="import_form_handle">
+                <input type="hidden" name="type"
+                       value="{% if data.type == 'update' %}update{% else %}insert{% endif %}">
+                {% if data.type == 'update' %}
+                    <input type="hidden" name="id" value="{{ data.id }}">
+                {% endif %}
+
+                <div class="col-xl-6 col-lg-8 col-12 mb-3">
+                    <label for="ImportName" class="form-label mb-1">
+                        {{ l.Name_oder_Location_for_diesen_Import }}:
+                        <span class="text-danger"> *</span> </label>
+                    <input type="text" name="import_name" autocomplete="cc-number"
+                           class="form-control" value="{{ data.bezeichnung }}"
+                           id="ImportName" aria-describedby="ImportNameHelp" required>
+                    <div id="ImportNameHelp" class="form-text">
+                        {{ l.Dieser_Name_wird_auf_der_Website_angezeigt }}.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="ImportDescription" class="form-label mb-1">
+                        {{ l.Description_for_this_import }}: </label>
+                    <textarea class="form-control" name="post_description" id="ImportDescription"
+                              rows="3">{{ data.description }}</textarea>
+                    <div id="ImportDescriptionHelp" class="form-text">
+                        {{ l.The_description_is_optional }}.
+                    </div>
+                </div>
+                <div class="row g-3">
+                    <div class="col-xl-6 col-lg-8 col-12 mb-3">
+                        <label title="{{ l.Max_Number_of_posts_and_events_Import }}" for="ImportCount"
+                               class="form-label d-block text-truncate mb-1">
+                            {{ l.Max_Number_of_posts_and_events_Import }}
+                        </label>
+                        <input type="number" name="import_count" autocomplete="cc-number"
+                               class="form-control" id="ImportCount"
+                               value="{{ data.max_count }}"
+                               aria-describedby="ImportNameHelp">
+                        <div id="ImportCountHelp" class="form-text">
+                            {{ l.max_imports_label }}
+                            {# {{ l.The_standard_value_is }} 100. #}
+                        </div>
+                    </div>
+
+                    <div class="col-xl-6 col-12 mb-3">
+                        <label for="SelectFromYear" class="form-label mb-1">
+                            {{ l.Beginn_der_Synchronisierung }}: </label>
+                        <select class="form-select no-blur mw-100" name="post_time_from" id="SelectFromYear"
+                                aria-label="Posts From">
+                            <option>{{ l.select }} ...</option>
+                            {% for select in select_max_year %}
+                                <option value="{{ select.count }}"
+                                        {% if data.post_time_from == select.count %}selected{% endif %}>{{ select.year }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3 col-12">
+                        <div class="form-check form-switch d-flex align-items-center">
+                            <input class="form-check-input no-blur" role="switch" name="import_no_image"
+                                   type="checkbox" id="CheckImportNoImageActive"
+                                   {% if data.import_no_image %}checked{% endif %}>
+                            <label class="ms-1 form-check-label"
+                                   for="CheckImportNoImageActive">{{ l.check_import_ohne_image }}</label>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+                <h6 class="card-title">{{ l.Facebook_Api_and_WordPress_Options }} </h6>
+                <hr>
+                <div class="row g-3">
+                    <div class="col-xl-6 col-12 mb-3">
+                        <label for="FBPageId" class="form-label mb-1">{{ l.Facebook_Page_ID }}:</label>
+                        <input type="text" name="page_id" autocomplete="cc-number"
+                               class="form-control" value="{{ data.page_id }}"
+                               id="FBPageId" aria-describedby="FBPageIdHelp">
+                        <div id="FBPageIdHelp" class="form-text">
+                            {{ l.page_id_help }}
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-12 mb-3">
+                        <label for="inputUserIDS" class="form-label mb-1">{{ l.Facebook_User_ID }}:</label>
+                        <input type="text" name="user_id" autocomplete="cc-number"
+                               value="{{ data.user_id }}"
+                               class="form-control" id="inputUserIDS">
+                        <div id="inputUserIDSHelp" class="form-text">
+                            {{ l.user_id_help }}
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="form-check form-switch d-flex align-items-center">
+                        <input class="form-check-input no-blur" role="switch" name="check_user_id"
+                               type="checkbox" id="CheckUserIdActive" {% if data.user_aktiv %}checked{% endif %}>
+                        <label class="form-check-label" for="CheckUserIdActive">{{ l.User_ID_active }}</label>
+                    </div>
+                </div>
+
+                <hr>
+                <h6 class="card-title"> {{ l.select_kategorie_label }}
+                    <div class="form-text">{{ l.select_kategorie_help }}</div>
+                </h6>
+                <hr>
+                <div class="row g-3">
+                    <div class="col-xl-6 col-12 mb-3">
+                        <label for="SelectPostCat" class="form-label mb-1">{{ l.Category_for_posts }}:</label>
+                        <select class="form-select no-blur mw-100" name="post_cat" id="SelectPostCat"
+                                aria-label="Post Category">
+                            <option>{{ l.select }} ...</option>
+                            {% if cat_select %}
+                                {% for s in cat_select %}
+                                    <option value="{{ s.term_id }}"
+                                            {% if data.post_term == s.term_id %}selected{% endif %}>
+                                        {{ s.name }}
+                                    </option>
+                                {% endfor %}
+                            {% endif %}
+                        </select>
+                    </div>
+                    <div class="col-xl-6 col-12 mb-3">
+                        <label for="SelectEventId" class="form-label mb-1">
+                            {{ l.Category_for_events }} </label>
+                        <select class="form-select no-blur mw-100" name="event_cat" id="SelectEventId"
+                                aria-label="Event Category">
+                            <option>{{ l.select }} ...</option>
+                            {% if cat_select %}
+                                {% for s in cat_select %}
+                                    <option value="{{ s.term_id }}"
+                                            {% if data.event_term == s.term_id %}selected{% endif %}>
+                                        {{ s.name }}
+                                    </option>
+                                {% endfor %}
+                            {% endif %}
+                        </select>
+                    </div>
+                </div>
+                <hr>
+                <h6 class="card-title"> {{ l.add_category_headline }}. </h6>
+                <hr>
+                <button type="button" class="btn btn-outline-secondary btn-sm"
+                        data-bs-toggle="modal" data-bs-target="#addCategoryModal">
+                    <i class="bi bi-list-task me-1"></i> {{ l.Create_new_category }}
+                </button>
+                <hr>
+
+                {% if not data.type == 'update' %}
+                    <button type="submit" class="btn btn-blue my-2"><i class="bi bi-facebook me-1"></i>
+                        {{ l.Create_a_new_Facebook_import }}
+                    </button>
+                {% else %}
+                    <div class="d-flex align-items-center flex-wrap">
+                        <button type="submit" class="btn btn-blue me-1 my-2">
+                            <i class="bi bi-facebook me-1"></i>
+                            {{ l.btn_update_import }}
+                        </button>
+                        <button data-type="posts" type="button" data-id="{{ data.id }}"
+                                class="btn-form-action btn btn-warning me-1 my-2">
+                            <i class="bi bi-trash me-1"></i>
+                            {{ l.btn_del_posts }}
+                        </button>
+                        <button data-type="events" type="button" data-id="{{ data.id }}"
+                                class="btn-form-action btn btn-warning me-1 my-2">
+                            <i class="bi bi-trash me-1"></i>
+                            {{ l.alle_events_delete }}
+                        </button>
+                        <button data-type="import" type="button" data-id="{{ data.id }}"
+                                class="btn-form-action btn btn-danger my-2">
+                            <i class="bi bi-trash me-1"></i>
+                            {{ l.btn_del_import }}
+                        </button>
+                    </div>
+                    <hr>
+
+                {% endif %}
+
+            </form>
+        </div>
+    </div>
+</div>

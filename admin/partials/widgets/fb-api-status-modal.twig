@@ -1,0 +1,15 @@
+<div class="modal-header {% if status %}success-bg{% else %}error-bg{% endif %}">
+    <h5 class="modal-title" id="AjaxResponseModalTitle">
+        <i class="bi bi-facebook me-1 font-blue"></i> {% if title %}{{ title }}{% else %}{{ l.Facebook_API_Status }}{% endif %}
+    </h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+    <h5 class="text-center">
+        <i class="{% if status %}text-success bi bi-check2-circle{% else %}text-danger bi bi-exclamation-triangle{% endif %} me-1"></i>{{ msg }}
+    </h5>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-light text-body border" data-bs-dismiss="modal">
+        <i class="text-danger bi bi-x-lg me-1"></i> {{ l.Close }}</button>
+</div>

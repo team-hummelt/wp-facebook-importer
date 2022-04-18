@@ -37,7 +37,7 @@ class Wp_Facebook_Importer_i18n {
 		load_plugin_textdomain(
 			'wp-facebook-importer',
 			false,
-			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
+			dirname(plugin_basename(__FILE__), 2) . '/languages/'
 		);
 
 	}
