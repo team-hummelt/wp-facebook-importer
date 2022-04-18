@@ -1,0 +1,54 @@
+{% extends "@layout/admin-layout.twig" %}
+{% block content %}
+    <div class="p-3 bg-light card shadow-sm" style="min-height: 65vh">
+        <div class="import-btn-group d-flex align-items-center flex-wrap">
+            <button data-load="data-tables"
+                    type="button" data-bs-toggle="collapse" data-bs-target="#collapseOverviewFBSite"
+                    aria-expanded="false" aria-controls="collapseOverviewFBSite"
+                    class="btn-collapse-toggle btn btn-blue-outline btn-sm me-1 my-2 active" disabled>
+                <i class="bi bi-list-task me-1"></i>
+                {{ l.all_imported_content }}
+            </button>
+            <button data-load="ajax-form"
+                    type="button" data-bs-toggle="collapse" data-bs-target="#collapseAddFBSite"
+                    aria-expanded="true" aria-controls="collapseAddFBSite"
+                    class="btn-collapse-toggle btn btn-blue-outline btn-sm my-2">
+                <i class="bi bi-plus-circle me-1"></i>{{ l.Import_new_content }}
+            </button>
+            <span class="update_user_role ajax-status-spinner ms-auto"></span>
+        </div>
+        <hr>
+        <div id="displayDataParent">
+            <div class="collapse show position-relative" id="collapseOverviewFBSite" data-bs-parent="#displayDataParent">
+
+                <div id="TableWrapper" class="table-responsive-xxl">
+                    <table id="TableImports" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>{{ tl.Designation }}</th>
+                            <th>{{ l.aktiv }}</th>
+                            <th class="text-nowrap">{{ tl.Max_Import }}</th>
+                            <th>{{ tl.User_ID }}</th>
+                            <th>{{ tl.Page_ID }}</th>
+                            <th class="text-nowrap">{{ tl.User_active }} <sup class="small text-muted">( 1 )</sup></th>
+                            <th class="text-nowrap">{{ tl.Post_Category }}</th>
+                            <th class="text-nowrap">{{ tl.Event_Category }}</th>
+                            <th>{{ tl.Edit }}</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="my-3">
+                    <small class="small text-muted">1<sup>*</sup> {{ l.user_id_help }}</small>
+                </div>
+            </div><!--collapse-->
+            <div class="collapse" id="collapseEditFBSite" data-bs-parent="#displayDataParent"></div>
+            <div class="collapse" id="collapseAddFBSite" data-bs-parent="#displayDataParent">
+                {{ include('@widget/import-formular.twig') }}
+            </div><!--collapse-->
+        </div><!--parent-->
+    </div>
+    {{ include('@widget/add-kategorie-modal.twig') }}
+{% endblock %}
+{% block title %}{{ l.site_page_headline }}{% endblock %}
+{% block subtitle %}{{ l.site_page_subline }}{% endblock %}

@@ -1,0 +1,31 @@
+<div id="fb-importer-container" class="wp-facebook-importer py-4 px-xl-5 px-lg-4 px-3">
+    <div class="position-relative">
+        <div class="ajax-sync-wait d-none">
+            <div class="inner-wrapper rounded border border-secondary">
+                <div class="wait-text mb-3 text-center">
+                    <h4>{{ l.sync_wait_head }}</h4> {{ l.sync_wait_second }} </div>
+                <div class="dot-pulse"></div>
+            </div>
+        </div>
+        <div class="card shadow-sm">
+            <!--<h5 class="card-header bg-custom-blue py-4"><i class="bi bi-facebook me-2"></i>{% block title %}{% endblock %}</h5>-->
+            <div class="card-body pb-4">
+                <div class="d-flex align-items-center mb-2">
+                    <h5 class="card-title"> <i class="font-blue bi bi-arrow-right-short me-1"></i>{% block subtitle %}{% endblock %}</h5>
+                </div>
+                {% block content %}{% endblock %}
+            </div>
+            <div class="position-absolute end-0 bottom-0 mb-1 me-4">
+                <small class="small-xl">
+                    DB: <span class="text-danger">v{{ db }}</span>
+                    | </small>
+             <small class="small-xl ">
+                 Version: <span class="text-danger">v{{ version }}</span>
+             </small>
+            </div>
+        </div>
+    </div>
+    <div id="snackbar-success"></div>
+</div>
+
+

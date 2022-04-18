@@ -29,3 +29,28 @@
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
+
+global $wpdb;
+$table_name = $wpdb->prefix . 'fb_api_settings';
+$sql = "DROP TABLE IF EXISTS $table_name";
+$wpdb->query($sql);
+
+$table_name = $wpdb->prefix . 'fb_api_imports';
+$sql = "DROP TABLE IF EXISTS $table_name";
+$wpdb->query($sql);
+
+delete_option("wp-facebook-importer/jal_db_version");
+delete_option('fb_importer_user_role');
+delete_option('fb_cronjob_settings');
+delete_option('wp-facebook-importer_update_config');
+
+//DELETE FP-CUSTOM POST-TYPE
+if( !function_exists( 'plugin_prefix_unregister_post_type' ) ) {
+    function plugin_prefix_unregister_post_type(){
+        unregister_post_type( 'wp_facebook_posts' );
+    }
+}
+
+add_action('init','plugin_prefix_unregister_post_type');
+
+wp_clear_scheduled_hook('fb_api_plugin_sync');

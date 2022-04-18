@@ -27,9 +27,9 @@ class Wp_Facebook_Importer_Public {
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $plugin_name    The ID of this plugin.
+	 * @var      string    $basename    The ID of this plugin.
 	 */
-	private $plugin_name;
+	private string $basename;
 
 	/**
 	 * The version of this plugin.
@@ -38,19 +38,29 @@ class Wp_Facebook_Importer_Public {
 	 * @access   private
 	 * @var      string    $version    The current version of this plugin.
 	 */
-	private $version;
+	private string $version;
+
+    /**
+     * Store plugin main class to allow public access.
+     *
+     * @since    1.0.0
+     * @access   private
+     * @var Wp_Facebook_Importer $main The main class.
+     */
+    private Wp_Facebook_Importer $main;
 
 	/**
 	 * Initialize the class and set its properties.
 	 *
-	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of the plugin.
-	 * @param      string    $version    The version of this plugin.
+	 * @param      string    $plugin_name The name of the plugin.
+	 * @param string $version    The version of this plugin.
+	 *@since    1.0.0
 	 */
-	public function __construct( $plugin_name, $version ) {
+	public function __construct(string $plugin_name, string $version, Wp_Facebook_Importer $main ) {
 
-		$this->plugin_name = $plugin_name;
+		$this->basename = $plugin_name;
 		$this->version = $version;
+        $this->main = $main;
 
 	}
 
@@ -73,7 +83,7 @@ class Wp_Facebook_Importer_Public {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wp-facebook-importer-public.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->basename, plugin_dir_url( __FILE__ ) . 'css/wp-facebook-importer-public.css', array(), $this->version, 'all' );
 
 	}
 
@@ -96,8 +106,17 @@ class Wp_Facebook_Importer_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wp-facebook-importer-public.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->basename, plugin_dir_url( __FILE__ ) . 'js/wp-facebook-importer-public.js', array( 'jquery' ), $this->version, false );
 
+        wp_register_script($this->basename.'-endpoint-localize', '', [], $this->version, true);
+        wp_enqueue_script($this->basename.'-endpoint-localize');
+        wp_localize_script($this->basename.'-endpoint-localize',
+            'FBIMRestObj',
+            array(
+                'get_url' => esc_url_raw(rest_url('fb-importer/v2/')),
+                'nonce' => wp_create_nonce('wp_rest'),
+            )
+        );
 	}
 
 }

@@ -1,0 +1,55 @@
+<div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <form id="modalFormular" class="admin-kategorie-formular" action="#" method="post">
+                <input type="hidden" name="method" value="set_facebook_category">
+                <div class="modal-header bg-custom-blue">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        <i class="bi bi-facebook me-1"></i> {{ l.Neue_Kategorie_erstellen }}
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="liveAlertPlaceholder"></div>
+                    <div class="mb-3">
+                        <label for="category-name" class="col-form-label">{{ l.Name }}:
+                            <span class="text-danger"> *</span> </label>
+                        <input type="text" name="cat_name" class="form-control no-blur" id="category-name" required>
+                        <div id="category-nameHelp"
+                             class="form-text"> {{ l.name_help }}
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="categorySlug"
+                               class="col-form-label">{{ l.Titelform }}:
+                            <span class="text-danger"> *</span></label>
+                        <input type="text" name="cat_slug" class="form-control no-blur" id="categorySlug" required>
+                        <div id="categorySlugHelp"
+                             class="form-text">{{ l.titel_form_help }}
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="CategoryDescription"
+                               class="col-form-label">{{ l.Beschreibung }}:</label>
+                        <textarea class="form-control no-blur" name="description" id="CategoryDescription"
+                                  rows="5"></textarea>
+                        <div id="CategoryDescriptionHelp" class="form-text">
+                            {{ l.beschreibung_help }}
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer bg-custom-gray">
+                    <button type="button" class="btn btn-outline-light border text-body" data-bs-dismiss="modal">
+                        <i class="text-danger bi bi-x-lg me-1"></i> {{ l.Abbrechen }}
+                    </button>
+                    <button type="submit" class="btn btn-blue">
+                        <i class="bi bi-facebook me-1"></i> {{ l.create }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
