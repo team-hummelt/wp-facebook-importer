@@ -252,6 +252,8 @@ class Wp_Facebook_Importer
         $this->cronjob_exec_id = 'vjb0dpn@keq2EZB_qxw';
         $this->cronjob_slug = 'cron';
 
+        $this->check_dependencies();
+        $this->load_dependencies();
 
         $twigAdminDir = plugin_dir_path(dirname(__FILE__)) . 'admin' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR;
         $twig_loader = new FilesystemLoader($twigAdminDir);
@@ -277,8 +279,7 @@ class Wp_Facebook_Importer
 
 
 
-        $this->check_dependencies();
-        $this->load_dependencies();
+
 
         $this->set_locale();
         $this->register_post_selector_database_handle();
