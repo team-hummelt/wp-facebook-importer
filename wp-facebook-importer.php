@@ -37,7 +37,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Currently DATABASE VERSION
  * @since             1.0.0
  */
-const WP_FACEBOOK_IMPORTER_DB_VERSION = '1.0.4';
+const WP_FACEBOOK_IMPORTER_DB_VERSION = '1.0.5';
 
 /**
  * MIN PHP VERSION for Activate

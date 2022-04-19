@@ -58,10 +58,12 @@
                             <th class="text-nowrap">{{ tl.Start_Post }}</th>
                             <th class="text-nowrap">{{ tl.End_Post }}</th>
                             <th class="text-nowrap">{{ tl.Post_Status }}</th>
+                            <th class="text-nowrap">{{ tl.Post_Count }}</th>
                             <th class="text-nowrap">{{ tl.Event_Category }}</th>
                             <th class="text-nowrap">{{ tl.Start_Event }}</th>
                             <th class="text-nowrap">{{ tl.End_Event }}</th>
                             <th class="text-nowrap">{{ tl.Event_Status }}</th>
+                            <th class="text-nowrap">{{ tl.Event_Count }}</th>
                             <th>{{ tl.delete }}</th>
                         </tr>
                         </thead>
@@ -86,6 +88,25 @@
                 {{ include('@widget/import-formular.twig') }}
             </div><!--collapse-->
         </div><!--parent-->
+    </div>
+
+    <div class="modal fade" id="AjaxErrorLogModal" tabindex="-1" aria-labelledby="AjaxErrorLogModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-danger">
+                    <h5 class="modal-title text-light" id="AjaxErrorLogModalTitle">
+                        <i class="bi bi-facebook me-1"></i> {{ l.import_error }}
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-light text-body border" data-bs-dismiss="modal">
+                        <i class="text-danger bi bi-x-lg me-1"></i> {{ l.Close }}</button>
+                </div>
+            </div>
+        </div>
     </div>
     {{ include('@widget/add-kategorie-modal.twig') }}
 {% endblock %}

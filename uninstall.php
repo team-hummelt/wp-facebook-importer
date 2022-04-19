@@ -39,6 +39,10 @@ $table_name = $wpdb->prefix . 'fb_api_imports';
 $sql = "DROP TABLE IF EXISTS $table_name";
 $wpdb->query($sql);
 
+$table_name = $wpdb->prefix . 'fb_api_sync_log';
+$sql = "DROP TABLE IF EXISTS $table_name";
+$wpdb->query($sql);
+
 delete_option("wp-facebook-importer/jal_db_version");
 delete_option('fb_importer_user_role');
 delete_option('fb_cronjob_settings');

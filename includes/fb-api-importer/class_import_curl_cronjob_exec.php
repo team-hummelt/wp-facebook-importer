@@ -59,7 +59,10 @@ class Import_Curl_Cronjob_Exec
     public function importer_check_get_params()
     {
         $log = new stdClass();
-
+        $log->post_err_log = '';
+        $log->event_err_log = '';
+        $log->post_count = 0;
+        $log->event_count = 0;
         $logDir = WP_FACEBOOK_IMPORTER_PLUGIN_DIR . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'log';
         $file = $logDir . DIRECTORY_SEPARATOR . 'cron-extern-sync.log';
         $import = apply_filters('wp-facebook-importer/get_facebook_imports', 'WHERE aktiv=1');
@@ -94,6 +97,7 @@ class Import_Curl_Cronjob_Exec
                 exit('no imports');
             }
 
+            $log->id = $this->helper->getGenerateRandomId(11,0 ,6);
             $ids = [];
             foreach ($import->record as $tmp) {
                 $ids[] = $tmp->id;
@@ -113,11 +117,39 @@ class Import_Curl_Cronjob_Exec
                 $post =  apply_filters($this->basename . '/sync_facebook_posts', $import->id);
                 sleep($postSleep);
                 $log->post_status = $post->status;
+                if(!$post->status){
+                    if(isset($post->msg) && $post->msg){
+                        if(!is_array($post->msg)){
+                            $errMsg[] = $post->msg;
+                        } else {
+                            $errMsg = $post->msg;
+                        }
+                        $log->post_err_log = json_encode($errMsg);
+                    }
+                }
+                if(isset($post->count)){
+                    $log->post_count = $post->count;
+                }
                 $log->end_post = current_time('timestamp');
                 $log->start_event = current_time('timestamp');
                 $event = apply_filters($this->basename . '/sync_facebook_events', $import->id);
                 sleep($eventSleep);
+
                 $log->event_status = $event->status;
+                if(!$event->status){
+                    if(isset($event->msg) && $event->msg){
+                        if(!is_array($event->msg)){
+                            $errMsg[] = $event->msg;
+                        } else {
+                            $errMsg = $event->msg;
+                        }
+                        $log->event_err_log = json_encode($errMsg);
+                    }
+                }
+                if(isset($event->count)){
+                    $log->event_count = $event->count;
+                }
+
                 $log->end_event = current_time('timestamp');
                 $this->db->set_plugin_syn_log($log);
             }

@@ -71,6 +71,8 @@ function getCronJobDataTable() {
             null,
             null,
             null,
+            null,
+            null,
             {
                 "width": "6%"
             }
@@ -80,10 +82,10 @@ function getCronJobDataTable() {
             orderable: false,
             targets: [9]
         }, {
-            targets: [0,1, 2, 3,5, 6, 7],
+            targets: [0,1, 2, 3, 6, 7, 8],
             className: 'align-middle'
         }, {
-            targets: [4, 8, 9],
+            targets: [4, 5, 9, 10, 11],
             className: 'align-middle text-center'
         }
         ],

@@ -51,6 +51,9 @@ class WP_Facebook_Importer_Database
     public function facebook_importer_check_jal_install()
     {
         if (get_option($this->basename . '/jal_db_version') != $this->db_version) {
+            if(get_option($this->basename . '/jal_db_version') == '1.0.4') {
+                $this->drop_update_table($this->table_api_sync_log);
+            }
             update_option($this->basename . '/jal_db_version', $this->db_version);
             $this->facebook_importer_jal_install();
             $this->hupa_set_plugin_default_settings('');
@@ -290,7 +293,7 @@ class WP_Facebook_Importer_Database
             array(
                 '%s', '%s', '%s'
             ),
-            array('%d')
+            array('%s')
         );
     }
 
@@ -759,6 +762,7 @@ class WP_Facebook_Importer_Database
         $wpdb->insert(
             $table,
             array(
+                'id' => $record->id,
                 'import_id' => $record->import_id,
                 'start_post' => $record->start_post,
                 'end_post' => $record->end_post,
@@ -766,16 +770,20 @@ class WP_Facebook_Importer_Database
                 'end_event' => $record->end_event,
                 'post_status' => $record->post_status,
                 'event_status' => $record->event_status,
+                'post_err_log' => $record->post_err_log,
+                'event_err_log' => $record->event_err_log,
+                'event_count' => $record->event_count,
+                'post_count' => $record->post_count
             ),
-            array('%d', '%s', '%s', '%s', '%s', '%d', '%d')
+            array('%s', '%d', '%s', '%s', '%s', '%s', '%d', '%d', '%s', '%s', '%d', '%d')
         );
 
     }
 
     /**
-     * @param int $id
+     * @param string $id
      */
-    public function delete_plugin_syn_log(int $id): void
+    public function delete_plugin_syn_log(string $id): void
     {
         global $wpdb;
         $table = $wpdb->prefix . $this->table_api_sync_log;
@@ -783,7 +791,7 @@ class WP_Facebook_Importer_Database
             $table,
             array(
                 'id' => $id),
-            array('%d')
+            array('%s')
         );
     }
 
@@ -792,7 +800,7 @@ class WP_Facebook_Importer_Database
         require_once ABSPATH . 'wp-admin/includes/upgrade.php';
         global $wpdb;
         $charset_collate = $wpdb->get_charset_collate();
-        if (!$this->if_fb_import_table_exists($this->table_api_settings)) {
+        //if (!$this->if_fb_import_table_exists($this->table_api_settings)) {
             $table_name = $wpdb->prefix . $this->table_api_settings;
             $sql = "CREATE TABLE $table_name (
             `id` varchar(12) NOT NULL,
@@ -806,9 +814,9 @@ class WP_Facebook_Importer_Database
             PRIMARY KEY (id)) 
             $charset_collate;";
             dbDelta($sql);
-        }
+        //}
 
-        if (!$this->if_fb_import_table_exists($this->table_api_imports)) {
+        //if (!$this->if_fb_import_table_exists($this->table_api_imports)) {
             $table_name = $wpdb->prefix . $this->table_api_imports;
             $sql = "CREATE TABLE $table_name (
             `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -830,24 +838,28 @@ class WP_Facebook_Importer_Database
             PRIMARY KEY (id)) 
             $charset_collate;";
             dbDelta($sql);
-        }
+      //  }
 
-        if (!$this->if_fb_import_table_exists($this->table_api_sync_log)) {
+      //  if (!$this->if_fb_import_table_exists($this->table_api_sync_log)) {
             $table_name = $wpdb->prefix . $this->table_api_sync_log;
             $sql = "CREATE TABLE $table_name (
-            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `id` varchar(12) NOT NULL,
             `import_id` int(11) NOT NULL,
             `start_post` varchar (14)NOT NULL DEFAULT '',
             `end_post` varchar (14)NOT NULL DEFAULT '',
             `start_event` varchar (14)NOT NULL DEFAULT '',
             `end_event` varchar (14)NOT NULL DEFAULT '',
             `post_status` tinyint(1) NOT NULL DEFAULT 1,
-            `event_status` tinyint(1) NOT NULL DEFAULT 1,
+            `event_status` tinyint(1) NOT NULL DEFAULT 1, 
+            `post_err_log` text NULL,
+            `event_err_log` text NULL,
+            `post_count` int(4) NOT NULL DEFAULT 0,
+            `event_count` int(4) NOT NULL DEFAULT 0,
             `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (id)) 
             $charset_collate;";
             dbDelta($sql);
-        }
+       // }
     }
 
     /**
@@ -863,5 +875,12 @@ class WP_Facebook_Importer_Database
             return true;
         }
         return false;
+    }
+
+    private function drop_update_table($table){
+        global $wpdb;
+        $table_name = $wpdb->prefix . $table;
+        $sql = "DROP TABLE IF EXISTS $table_name";
+        $wpdb->query($sql);
     }
 }

@@ -682,7 +682,7 @@ class WP_Facebook_Importer_Ajax
 
                 switch ($type){
                     case'one-log':
-                        $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+                        $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_STRING);
                         apply_filters($this->basename.'/delete_plugin_syn_log', $id);
                         break;
                     case'all-log':
@@ -707,6 +707,56 @@ class WP_Facebook_Importer_Ajax
                 $nextTime = apply_filters($this->basename . '/get_next_cron_time', 'fb_api_plugin_sync');
                 $responseJson->status = true;
                 $responseJson->next_time = date('Y-m-d H:i:s', current_time('timestamp') + $nextTime);
+                break;
+
+            case'get_log_error_msg':
+                $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_STRING);
+                $type = filter_input(INPUT_POST, 'type', FILTER_SANITIZE_STRING);
+                if(!$id || !$type){
+                    return $responseJson;
+                }
+                $args =  sprintf('WHERE sl.id="%s"', $id);
+                $log = apply_filters($this->basename.'/get_plugin_syn_log',$args, false);
+                if(!$log->status){
+                    return $responseJson;
+                }
+                if(!isset($log->record->$type)){
+                    return $responseJson;
+                }
+                $fb_link = '';
+                $errLog = [];
+                $log = json_decode($log->record->$type);
+                foreach($log as $tmp){
+                    isset($tmp->msg) ? $msg = $tmp->msg : $msg = '';
+                    isset($tmp->fb_id) ? $fbId = $tmp->fb_id : $fbId = '';
+                    isset($tmp->title) ? $title = $tmp->title : $title = '';
+                    if(!$msg){
+                        continue;
+                    }
+                    if($fbId){
+                        if($type == 'post_err_log'){
+                            $fb = explode('_',$fbId);
+
+                            $fb_link = 'https://www.facebook.com/'.$fb[0].'/posts/'.$fb[1];
+                        }
+                        if($type == 'event_err_log'){
+                            $fb_link = 'https://www.facebook.com/events/'.$fbId;
+                        }
+                        $err_item = [
+                            'link' => $fb_link,
+                            'msg' => $msg,
+                            'title' => $title
+                        ];
+                        $errLog[] = $err_item;
+                    }
+                }
+
+                if(!$errLog){
+                    return $responseJson;
+                }
+                $responseJson->status = true;
+                $responseJson->err_log = $errLog;
+
                 break;
 
             case'imports_data_table':
@@ -796,9 +846,11 @@ class WP_Facebook_Importer_Ajax
                     "sl.start_post",
                     "sl.end_post",
                     "sl.post_status",
+                    "sl.post_count",
                     "sl.start_event",
                     "sl.end_event",
                     "sl.event_status",
+                    "sl.event_count",
                     ""];
 
                 if (isset($_POST['search']['value'])) {
@@ -808,7 +860,7 @@ class WP_Facebook_Importer_Ajax
                 if (isset($_POST['order'])) {
                     $query .= ' ORDER BY ' . $columns[$_POST['order']['0']['column']] . ' ' . $_POST['order']['0']['dir'] . ' ';
                 } else {
-                    $query .= ' ORDER BY created_at ASC';
+                    $query .= ' ORDER BY created_at DESC';
                 }
 
                 $limit = '';
@@ -828,6 +880,8 @@ class WP_Facebook_Importer_Ajax
                 }
 
                 foreach ($table->record as $tmp) {
+                    $tmp->post_err_log ? $postErrLink = '<span class="d-block text-center m-0 p-0 lh-1"><button data-bs-type="post_err_log" data-bs-id="'.$tmp->id.'" data-bs-toggle="modal" data-bs-target="#AjaxErrorLogModal" class="btn btn-link text-decoration-none font-blue btn-sm p-0 my-0 lh-1">ansehen</button></span>' : $postErrLink = '';
+                    $tmp->event_err_log ? $eventErrLink = '<span class="d-block text-center m-0 p-0 lh-1"><button data-bs-type="event_err_log" data-bs-id="'.$tmp->id.'" data-bs-toggle="modal" data-bs-target="#AjaxErrorLogModal" class="btn btn-link text-decoration-none font-blue btn-sm p-0 my-0 lh-1">ansehen</button></span>' : $eventErrLink = '';
                     $post_term = apply_filters($this->basename . '/get_term_by_term_id', $tmp->post_term);
                     $event_term = apply_filters($this->basename . '/get_term_by_term_id', $tmp->event_term);
                     $tmp->post_status ? $statusPost = 'text-success bi bi-check-circle' : $statusPost = 'text-danger bi bi-x-circle';
@@ -838,11 +892,13 @@ class WP_Facebook_Importer_Ajax
                     $data_item[] = '<span class="d-block small lh-2">' . $post_term->term->name . '</span>';
                     $data_item[] = '<span class="d-none">' . $tmp->start_post . '</span><span class="small d-block lh-1">' . date('d.m.Y', $tmp->start_post) . '</span><span class="small-lg">' . date('H:i:s', $tmp->start_post) . '</span>';
                     $data_item[] = '<span class="d-none">' . $tmp->end_post . '</span><span class="small d-block lh-1">' . date('d.m.Y', $tmp->end_post) . '</span><span class="small-lg">' . date('H:i:s', $tmp->end_post) . '</span>';
-                    $data_item[] = '<span class="d-none">'.$tmp->post_status.'</span><i class="'.$statusPost.'"></i>';
+                    $data_item[] = '<span class="d-none">'.$tmp->post_status.'</span><i class="'.$statusPost.'"></i>'.$postErrLink;
+                    $data_item[] = '<span class="font-strong">'.$tmp->post_count.'</span>';
                     $data_item[] = '<span class="d-block small lh-2">' . $event_term->term->name . '</span>';
                     $data_item[] = '<span class="d-none">' . $tmp->start_event . '</span><span class="small d-block lh-1">' . date('d.m.Y', $tmp->start_event) . '</span><span class="small-lg">' . date('H:i:s', $tmp->start_event) . '</span>';
                     $data_item[] = '<span class="d-none">' . $tmp->end_event . '</span><span class="small d-block lh-1">' . date('d.m.Y', $tmp->end_event) . '</span><span class="small-lg">' . date('H:i:s', $tmp->end_event) . '</span>';
-                    $data_item[] = '<span class="d-none">'.$tmp->event_status.'</span><i class="'.$statusEvent.'"></i>';
+                    $data_item[] = '<span class="d-none">'.$tmp->event_status.'</span><i class="'.$statusEvent.'"></i>'.$eventErrLink;
+                    $data_item[] = '<span class="font-strong">'.$tmp->event_count.'</span>';
                     $data_item[] = '<button data-type="one-log" data-id="' . $tmp->id . '" class="btn-delete-log btn btn-outline-danger btn-table text-nowrap"><i class="bi bi-trash me-1"></i> ' . __('delete', 'wp-facebook-importer') . ' </button>';
                     $data_arr[] = $data_item;
                 }
