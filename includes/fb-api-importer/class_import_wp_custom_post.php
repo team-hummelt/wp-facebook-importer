@@ -145,6 +145,7 @@ class Import_WP_Custom_Post
 
         $errArr = [];
         $i = 0;
+        $c = 0;
         $count = $fbData->count - 1;
         foreach ($fbData->record as $tmp) {
             if ($this->db->check_double_post($tmp['id'])) {
@@ -163,11 +164,13 @@ class Import_WP_Custom_Post
                     'msg' => $makePost->msg
                 ];
                 $errArr[] = $err_item;
+                $c--;
             }
             if ($i == $count) {
                 $last_date = $makePost->fb_post_created;
             }
             $i++;
+            $c++;
         }
 
         if (!$errArr && $i != 0) {
@@ -193,7 +196,7 @@ class Import_WP_Custom_Post
         $this->db->delete_old_wp_facebook_posts($importId);
 
         $response->status = !$errArr;
-        $response->count = $i;
+        $response->count = $c;
         $response->msg = $errArr;
         return $response;
     }

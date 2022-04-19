@@ -623,7 +623,7 @@ class Wp_Facebook_Importer
         //LOG
         $this->loader->add_filter($this->plugin_name . '/set_plugin_syn_log', $FbImporterDatabase, 'set_plugin_syn_log');
         $this->loader->add_filter($this->plugin_name . '/delete_plugin_syn_log', $FbImporterDatabase, 'delete_plugin_syn_log');
-        $this->loader->add_filter($this->plugin_name . '/get_plugin_syn_log', $FbImporterDatabase, 'get_plugin_syn_log');
+        $this->loader->add_filter($this->plugin_name . '/get_plugin_syn_log', $FbImporterDatabase, 'get_plugin_syn_log',10,2);
 
     }
 

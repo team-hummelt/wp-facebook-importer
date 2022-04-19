@@ -219,6 +219,7 @@ trait WP_Facebook_Importer_Defaults {
                 'formular_headline_new'=> __('Create new import','wp-facebook-importer'),
                 'btn_cronjob_log' => __('Display cronjob log', 'wp-facebook-importer'),
                 'next_update' => __('next update', 'wp-facebook-importer'),
+                'import_error' => __('import error', 'wp-facebook-importer'),
                 //ToolTip
                 'tooltip_reset_sync' => __('The date of the last synchronization is reset.','wp-facebook-importer')
 
@@ -236,6 +237,8 @@ trait WP_Facebook_Importer_Defaults {
                 'Start_Post' => __('Start post', 'wp-facebook-importer'),
                 'End_Post' => __('End post', 'wp-facebook-importer'),
                 'Start_Event' => __('Start event', 'wp-facebook-importer'),
+                'Post_Count' => __('new posts', 'wp-facebook-importer'),
+                'Event_Count' => __('new events', 'wp-facebook-importer'),
                 'End_Event' => __('End event', 'wp-facebook-importer'),
                 'Event_Status' => __('Event status', 'wp-facebook-importer'),
                 'Post_Status' => __('Post status', 'wp-facebook-importer'),

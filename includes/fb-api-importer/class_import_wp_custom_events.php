@@ -113,6 +113,7 @@ class Import_WP_Custom_Events
 
         $errArr = [];
         $i = 0;
+        $c = 0;
         $count = $fbEvents->count > 0 ? $fbEvents->count - 1 : 0;
         foreach ($fbEvents->record as $tmp) {
 
@@ -133,7 +134,9 @@ class Import_WP_Custom_Events
                     'msg' => $makeEvent->msg
                 ];
                 $errArr[] = $err_item;
+                $c--;
             }
+            $c++;
 
         }
 
@@ -148,7 +151,7 @@ class Import_WP_Custom_Events
         $this->db->update_last_sync($id, current_time('timestamp'));
 
         $response->status = !$errArr;
-        $response->count = $i;
+        $response->count = $c;
         $response->events_found = $count;
         $response->msg = $errArr;
         return $response;

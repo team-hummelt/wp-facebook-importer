@@ -410,6 +410,47 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    let errorLogModal = document.getElementById('AjaxErrorLogModal');
+    errorLogModal.addEventListener('show.bs.modal', function (event) {
+
+        let button = event.relatedTarget
+        let id = button.getAttribute('data-bs-id');
+        let type = button.getAttribute('data-bs-type');
+        let formData = {
+            'method' : 'get_log_error_msg',
+            'id' : id,
+            'type':type
+        }
+        api_xhr_experience_reports_form_data(formData, false, error_log_msg_callback);
+    });
+
+    function error_log_msg_callback() {
+        let data = JSON.parse(this.responseText);
+        let mBody = jQuery('#AjaxErrorLogModal .modal-body');
+        mBody.html('');
+        if(data.status) {
+            let alBox = '';
+            jQuery.each(data.err_log, function (key, val) {
+                alBox += `<div class="alert alert-danger mb-2" role="alert">
+                           <h5>Type: ${val.title}</h5>
+                           <hr>   
+                           <b>Message:</b>
+                           <p class="fs-6 fw-normal">
+                            ${val.msg}
+                           </p>
+                           <hr>
+                           <a href="${val.link}" target="_blank" class="alert-link">Facebook-Link</a>
+                          </div>`;
+            });
+
+            mBody.html(alBox);
+        } else {
+            let FormModalEl = document.getElementById('AjaxErrorLogModal');
+            let modal = bootstrap.Modal.getInstance(FormModalEl);
+            modal.hide();
+        }
+    }
+
 
     /**======================================
      ========== AJAX SPINNER SHOW  ===========
