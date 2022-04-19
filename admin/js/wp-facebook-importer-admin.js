@@ -79,6 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
      */
     if (urlParams.get('page') === 'fb-importer-sites') {
         getImportDataTable();
+        getCronJobDataTable();
     }
 
     jQuery(document).on('click', '.btn-collapse-toggle', function () {
@@ -86,6 +87,9 @@ document.addEventListener("DOMContentLoaded", function () {
         btnCol.prop('disabled', false).removeClass('active');
         jQuery(this).prop('disabled', true).addClass('active');
         ImportTableDetails.draw('page');
+        if(jQuery(this).attr('data-load') == 'log-table'){
+        cronJobTable.draw('page')
+        }
     });
 
     jQuery(document).on('submit', '.admin-ajax-formular', function (e) {
@@ -98,6 +102,19 @@ document.addEventListener("DOMContentLoaded", function () {
         jQuery('.cronjob-settings').toggleClass('d-none');
     });
 
+    jQuery(document).on('click', '.btn-delete-log', function () {
+        let formData = {
+            'method': 'delete_log',
+            'type':jQuery(this).attr('data-type'),
+            'id':jQuery(this).attr('data-id')
+        }
+        api_xhr_experience_reports_form_data(formData, false, delete_log_data_callback);
+    });
+
+      function delete_log_data_callback() {
+          let data = JSON.parse(this.responseText);
+          cronJobTable.draw('page');
+      }
 
     function formular_admin_settings_data_callback() {
         let data = JSON.parse(this.responseText);

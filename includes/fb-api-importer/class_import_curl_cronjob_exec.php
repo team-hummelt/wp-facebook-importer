@@ -2,6 +2,7 @@
 
 namespace WPFacebook\Importer;
 
+use stdClass;
 use Wp_Facebook_Importer;
 
 class Import_Curl_Cronjob_Exec
@@ -57,9 +58,12 @@ class Import_Curl_Cronjob_Exec
 
     public function importer_check_get_params()
     {
+        $log = new stdClass();
+
         $logDir = WP_FACEBOOK_IMPORTER_PLUGIN_DIR . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'log';
         $file = $logDir . DIRECTORY_SEPARATOR . 'cron-extern-sync.log';
         $import = apply_filters('wp-facebook-importer/get_facebook_imports', 'WHERE aktiv=1');
+
         if(!$import->status){
             exit('no imports');
         }
@@ -98,18 +102,24 @@ class Import_Curl_Cronjob_Exec
             $where = sprintf('WHERE id=%d', $ids[$id - 1]);
             $import = apply_filters('wp-facebook-importer/get_facebook_imports', $where, false);
             if ($import->status) {
+
                 $settingsSleep = get_option('fb_cronjob_settings');
                 $postSleep = (int) $settingsSleep['min_sleep_post'];
                 $eventSleep = (int) $settingsSleep['min_sleep_event'];
-                $time = date('\a\m d.m.Y \u\m H:i:s', current_time('timestamp'));
                 $import = $import->record;
-                $msg = __('Synchronisation successful', 'hupa-fb-api');
-                $logMsg = $time . ' Uhr|'.$import->bezeichnung.'|'.$import->id.' |'.$msg."\r\n";
-                file_put_contents($file, $logMsg, FILE_APPEND | LOCK_EX);
+
+                $log->start_post = current_time('timestamp');
+                $log->import_id = $import->id;
                 $post =  apply_filters($this->basename . '/sync_facebook_posts', $import->id);
                 sleep($postSleep);
+                $log->post_status = $post->status;
+                $log->end_post = current_time('timestamp');
+                $log->start_event = current_time('timestamp');
                 $event = apply_filters($this->basename . '/sync_facebook_events', $import->id);
                 sleep($eventSleep);
+                $log->event_status = $event->status;
+                $log->end_event = current_time('timestamp');
+                $this->db->set_plugin_syn_log($log);
             }
 
             if ($id < count($ids)) {

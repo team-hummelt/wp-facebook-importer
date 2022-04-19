@@ -1,110 +1,117 @@
 {% extends "@layout/admin-layout.twig" %}
 {% block content %}
-    <div class="col-xl-10 col-12 mx-auto">
-        <form class="sendAdminAjaxForm">
-            <input type="hidden" name="method" value="set_plugin_settings">
-            <div class="border rounded shadow-sm p-3 bg-custom-gray">
-                <h6 class="card-title d-flex flex-wrap align-items-center">{{ l.FB_API_credentials }}
-                    <span class="set_plugin_settings ajax-status-spinner ms-auto"></span>
-                </h6>
-                <hr>
-                <div class="row g-3 ">
-                    <div class="col-xl-4">
-                        <label for="inputAppId" class="form-label">{{ l.App_ID }}:</label>
-                        <input type="text" name="app_id" value="{{ s.app_id }}" autocomplete="cc-number"
-                               class="form-control no-blur"
-                               id="inputAppId">
-                    </div>
-                    <div class="col-xl-4">
-                        <label for="inputSecret" class="form-label">{{ l.APP_Secret }}:</label>
-                        <input type="text" name="app_secret" value="{{ s.app_secret }}" autocomplete="cc-number"
-                               class="form-control no-blur"
-                               id="inputSecret">
-                    </div>
-                    <div class="col-xl-12">
-                        <label for="inputToken" class="form-label">{{ l.Access_Token }}:</label>
-                        <textarea class="form-control no-blur" name="token" id="inputToken"
-                                  placeholder="{% if s.access_token %}{{ l.Access_Token }} {{ l.gespeichert }}!{% else %}xxxxxxxxxxxx{% endif %}"></textarea>
-                    </div>
-                </div>
 
-                <div class="py-3">
-                    <button type="button" class="show-access-token btn btn-outline-secondary btn-hover-light btn-sm"
-                            {% if not s.access_token %}disabled{% endif %}>
+    <div class="bg-light card px-3 pt-3 pb-5">
+        <div class="col-xxl-8 col-12 bg-custom-gray my-3 mx-auto">
+            <form class="sendAdminAjaxForm">
+                <input type="hidden" name="method" value="set_plugin_settings">
+                <div class="border rounded shadow-sm p-3 bg-custom-gray">
+                    <h4 class="card-title d-flex flex-wrap align-items-center">{{ l.FB_API_credentials }}
+                        <span class="set_plugin_settings ajax-status-spinner ms-auto"></span>
+                    </h4>
+                    <hr>
+                    <div class="row g-3 ">
+                        <div class="col-xl-4">
+                            <label for="inputAppId" class="form-label">{{ l.App_ID }}:</label>
+                            <input type="text" name="app_id" value="{{ s.app_id }}" autocomplete="cc-number"
+                                   class="form-control no-blur"
+                                   id="inputAppId">
+                        </div>
+                        <div class="col-xl-4">
+                            <label for="inputSecret" class="form-label">{{ l.APP_Secret }}:</label>
+                            <input type="text" name="app_secret" value="{{ s.app_secret }}" autocomplete="cc-number"
+                                   class="form-control no-blur"
+                                   id="inputSecret">
+                        </div>
+                        <div class="col-xl-12">
+                            <label for="inputToken" class="form-label">{{ l.Access_Token }}:</label>
+                            <textarea class="form-control no-blur" name="token" id="inputToken"
+                                      placeholder="{% if s.access_token %}{{ l.Access_Token }} {{ l.gespeichert }}!{% else %}xxxxxxxxxxxx{% endif %}"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="py-3">
+                        <button type="button" class="show-access-token btn btn-outline-secondary btn-hover-light btn-sm"
+                                {% if not s.access_token %}disabled{% endif %}>
                     <span class="show-btn-text">
                         <i class="fs-small text-success bi bi-eye me-1"></i>{{ l.Token_anzeigen }}
                     </span>
-                        <span class="show-btn-text d-none">
+                            <span class="show-btn-text d-none">
                         <i class="fs-small text-danger bi bi-eye-slash me-1"></i>{{ l.Token_ausblenden }}
                     </span>
-                    </button>
+                        </button>
 
-                    <button type="button" data-bs-method="check_fp_access_token" data-bs-toggle="modal"
-                            data-bs-target="#AjaxResponseModal" class="btn btn-outline-secondary btn-hover-light btn-sm"
-                            {% if not s.access_token %}disabled{% endif %}>
+                        <button type="button" data-bs-method="check_fp_access_token" data-bs-toggle="modal"
+                                data-bs-target="#AjaxResponseModal"
+                                class="btn btn-outline-secondary btn-hover-light btn-sm"
+                                {% if not s.access_token %}disabled{% endif %}>
                 <span class="check-btn-token">
                     <i class="fs-small text-success bi bi-check-circle me-1"></i>{{ l.Check_Access_Token }}
                 </span>
-                    </button>
-                </div>
-            </div>
-
-            <div class="border rounded mt-4 shadow-sm p-3 bg-custom-gray">
-                <hr>
-                <h6 class="card-title"> {{ l.Synchronisation_Einstellungen }}</h6>
-                <hr>
-
-                <div class="col-xl-12 pt-2">
-                    <div class="form-check form-switch">
-                        <input data-target=".fieldset-cronjob"
-                               class="form-check-input no-blur change-disabled" name="cron_aktiv" type="checkbox"
-                               id="CheckCronActive" {% if s.cron_aktiv %}checked{% endif %}>
-                        <label class="form-check-label" for="CheckCronActive">{{ l.Cronjob_aktiv }}</label>
+                        </button>
                     </div>
                 </div>
 
-                {% if var.next_cron_date %}
-                    <small class="small next-sync-time">
-                        <i class="text-success bi bi-clock-history me-1"></i>
-                        {{ l.next_synchronisierung_am }}&nbsp;<span class="font-strong">{{ var.next_cron_date }}
-                    </span> {{ l.um }}&nbsp;<span class="font-strong">{{ var.next_cron_time }}</span> {{ l.Uhr }}
-                    </small>
-                {% endif %}
-                <hr>
-                <div class="row g-3">
+                <div class="border rounded mt-4 shadow-sm p-3 bg-custom-gray">
+                    <hr>
+                    <h6 class="card-title"> {{ l.Synchronisation_Einstellungen }}</h6>
+                    <hr>
 
-                    <div class="col-xl-4">
-                        <fieldset class="fieldset-cronjob" {% if not s.cron_aktiv %}disabled{% endif %}>
-                            <label for="inputSyncInterval" class="form-label">{{ l.Synchronisierungsintervall }}
+                    <div class="col-xl-12 pt-2">
+                        <div class="form-check form-switch">
+                            <input data-target=".fieldset-cronjob"
+                                   class="form-check-input no-blur change-disabled" name="cron_aktiv" type="checkbox"
+                                   id="CheckCronActive" {% if s.cron_aktiv %}checked{% endif %}>
+                            <label class="form-check-label" for="CheckCronActive">{{ l.Cronjob_aktiv }}</label>
+                        </div>
+                    </div>
+
+                    {% if var.next_cron_date %}
+                        <small class="small next-sync-time">
+                            <i class="text-success bi bi-clock-history me-1"></i>
+                            {{ l.next_synchronisierung_am }}&nbsp;<span class="font-strong">{{ var.next_cron_date }}
+                    </span> {{ l.um }}&nbsp;<span class="font-strong">{{ var.next_cron_time }}</span> {{ l.Uhr }}
+                        </small>
+                    {% endif %}
+                    <hr>
+                    <div class="row g-3">
+
+                        <div class="col-xl-4">
+                            <fieldset class="fieldset-cronjob" {% if not s.cron_aktiv %}disabled{% endif %}>
+                                <label for="inputSyncInterval" class="form-label">{{ l.Synchronisierungsintervall }}
+                                    :</label>
+                                <select class="form-select no-blur" name="sync_interval" id="inputSyncInterval">
+                                    {% for select in select_sync_interval %}
+                                        <option value="{{ select.id|trim }}"
+                                                {% if s.sync_interval|trim == select.id %}selected{% endif %}>{{ select.bezeichnung }}</option>
+                                    {% endfor %}
+                                </select>
+                                <div id="inputSyncIntervalHelp" class="form-text">
+                                    {{ l.Update_Intervall_for_die_Synchronisierung }}.
+                                </div>
+                            </fieldset>
+                        </div>
+
+                        <div class="col-xl-4">
+                            <label for="inputMaxPosts" class="form-label">{{ l.Beitrage_pro_Update_Importieren }}
                                 :</label>
-                            <select class="form-select no-blur" name="sync_interval" id="inputSyncInterval">
-                                {% for select in select_sync_interval %}
-                                    <option value="{{ select.id|trim }}"
-                                            {% if s.sync_interval|trim == select.id %}selected{% endif %}>{{ select.bezeichnung }}</option>
+                            <select class="form-select no-blur" name="sync_max" id="inputMaxPosts">
+                                {% for select in select_max_post_sync %}
+                                    <option value="{{ select.id }}"
+                                            {% if s.max_sync == select.id %}selected{% endif %}>{{ select.value }}</option>
                                 {% endfor %}
                             </select>
-                            <div id="inputSyncIntervalHelp" class="form-text">
-                                {{ l.Update_Intervall_for_die_Synchronisierung }}.
-                            </div>
-                        </fieldset>
+                        </div>
                     </div>
 
-                    <div class="col-xl-4">
-                        <label for="inputMaxPosts" class="form-label">{{ l.Beitrage_pro_Update_Importieren }}:</label>
-                        <select class="form-select no-blur" name="sync_max" id="inputMaxPosts">
-                            {% for select in select_max_post_sync %}
-                                <option value="{{ select.id }}"
-                                        {% if s.max_sync == select.id %}selected{% endif %}>{{ select.value }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
+                    <hr>
+                    <small> {{ l.URL_for_external_cronjob }}: <span
+                                class="font-blue"> {{ var.external_url }}</span></small>
                 </div>
-
-                <hr>
-                <small> {{ l.URL_for_external_cronjob }}: <span class="font-blue"> {{ var.external_url }}</span></small>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
+
     <div class="modal fade" id="AjaxResponseModal" tabindex="-1" aria-labelledby="AjaxResponseModalLabel"
          aria-hidden="true">
         <div class="modal-dialog">

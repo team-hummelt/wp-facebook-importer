@@ -172,7 +172,7 @@ class Wp_Facebook_Importer_Admin
         $select_max_post_sync = $this->get_plugin_defaults('max_post_sync');
         $lang = wp_parse_args($siteLang, $modalLang);
         $var = [
-            'external_url' => rest_url('fb-importer/v2/cron/' . $this->main->get_cronjob_id()),
+            'external_url' => site_url().'/?'.$this->main->get_cronjob_slug().'='.$this->main->get_cronjob_id(),
             'next_cron_date' => $nextCronDate,
             'next_cron_time' => $nextCronTime
         ];

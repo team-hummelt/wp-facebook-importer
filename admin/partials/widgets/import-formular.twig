@@ -4,21 +4,21 @@
 
             {% if data.type == 'update' %}
                 <h4>{{ l.formular_headline_update }} {{ data.bezeichnung }}
-                   <small class="count-imports small d-block">
-                       <hr>
-                       <div class="d-flex small-inline-list mt-3  mb-1 py-0">
-                           <span>{{ l.Imported }} {{ l.Posts }}</span>
-                           <span><b class="font-strong text-muted">:</b>
+                    <small class="count-imports small d-block">
+                        <hr>
+                        <span class="d-flex small-inline-list mt-3  mb-1 py-0">
+                            <span>{{ l.Imported }} {{ l.Posts }}</span>
+                            <span><b class="font-strong text-muted">:</b>
                                <span class="importPosts">{{ data.postCount }}</span>
                            </span>
-                       </div>
-                       <div class="d-flex small-inline-list my-0 py-0">
-                           <span>{{ l.Imported }} {{ l.Events }}</span>
-                           <span><b class="font-strong text-muted">:</b>
+                        </span>
+                        <span class="d-flex small-inline-list my-0 py-0">
+                            <span>{{ l.Imported }} {{ l.Events }}</span>
+                            <span><b class="font-strong text-muted">:</b>
                                <span class="importEvents">{{ data.eventCount }}</span>
                            </span>
-                       </div>
-                   </small>
+                        </span>
+                    </small>
                 </h4>
                 <hr>
                 <div class="d-flex align-items-center flex-wrap">
@@ -43,7 +43,7 @@
                         {{ l.btn_reset_import }}
                     </button>
                     <i data-bs-toggle="tooltip" data-bs-placement="top" title="{{ l.tooltip_reset_sync }}"
-                            class="font-blue small cursor-pointer bi bi-info-circle-fill align-self-start ms-2"></i>
+                       class="font-blue small cursor-pointer bi bi-info-circle-fill align-self-start ms-2"></i>
                 </div>
                 <hr>
                 <div class="liveAlertPlaceholder"></div>
@@ -75,9 +75,9 @@
                     </div>
                     <hr>
                 </div>
-                {% else %}
-                    <h4>{{ l.formular_headline_new }}</h4>
-                    <hr>
+            {% else %}
+                <h4>{{ l.formular_headline_new }}</h4>
+                <hr>
             {% endif %}
             <form class="admin-ajax-formular">
                 <input type="hidden" name="method" value="import_form_handle">
@@ -91,8 +91,8 @@
                     <label for="ImportName" class="form-label mb-1">
                         {{ l.Name_oder_Location_for_diesen_Import }}:
                         <span class="text-danger"> *</span> </label>
-                    <input type="text" name="import_name" autocomplete="cc-number"
-                           class="form-control" value="{{ data.bezeichnung }}"
+                    <input type="text" name="import_name"
+                           class="form-control no-blur" value="{{ data.bezeichnung }}"
                            id="ImportName" aria-describedby="ImportNameHelp" required>
                     <div id="ImportNameHelp" class="form-text">
                         {{ l.Dieser_Name_wird_auf_der_Website_angezeigt }}.
@@ -101,7 +101,7 @@
                 <div class="mb-3">
                     <label for="ImportDescription" class="form-label mb-1">
                         {{ l.Description_for_this_import }}: </label>
-                    <textarea class="form-control" name="post_description" id="ImportDescription"
+                    <textarea class="form-control no-blur" name="post_description" id="ImportDescription"
                               rows="3">{{ data.description }}</textarea>
                     <div id="ImportDescriptionHelp" class="form-text">
                         {{ l.The_description_is_optional }}.
@@ -113,8 +113,8 @@
                                class="form-label d-block text-truncate mb-1">
                             {{ l.Max_Number_of_posts_and_events_Import }}
                         </label>
-                        <input type="number" name="import_count" autocomplete="cc-number"
-                               class="form-control" id="ImportCount"
+                        <input type="number" name="import_count"
+                               class="form-control no-blur" id="ImportCount"
                                value="{{ data.max_count }}"
                                aria-describedby="ImportNameHelp">
                         <div id="ImportCountHelp" class="form-text">
@@ -152,8 +152,8 @@
                 <div class="row g-3">
                     <div class="col-xl-6 col-12 mb-3">
                         <label for="FBPageId" class="form-label mb-1">{{ l.Facebook_Page_ID }}:</label>
-                        <input type="text" name="page_id" autocomplete="cc-number"
-                               class="form-control" value="{{ data.page_id }}"
+                        <input type="text" name="page_id"
+                               class="form-control no-blur" value="{{ data.page_id }}"
                                id="FBPageId" aria-describedby="FBPageIdHelp">
                         <div id="FBPageIdHelp" class="form-text">
                             {{ l.page_id_help }}
@@ -161,9 +161,9 @@
                     </div>
                     <div class="col-xl-6 col-12 mb-3">
                         <label for="inputUserIDS" class="form-label mb-1">{{ l.Facebook_User_ID }}:</label>
-                        <input type="text" name="user_id" autocomplete="cc-number"
+                        <input type="text" name="user_id"
                                value="{{ data.user_id }}"
-                               class="form-control" id="inputUserIDS">
+                               class="form-control no-blur" id="inputUserIDS">
                         <div id="inputUserIDSHelp" class="form-text">
                             {{ l.user_id_help }}
                         </div>
