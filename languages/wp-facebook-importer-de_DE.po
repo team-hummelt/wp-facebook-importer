@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WP-Facebook Importer v1.0.0\n"
-"POT-Creation-Date: 2022-04-19 01:54+0200\n"
-"PO-Revision-Date: 2022-04-19 01:56+0200\n"
+"POT-Creation-Date: 2022-04-19 17:48+0200\n"
+"PO-Revision-Date: 2022-04-19 17:48+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -34,11 +34,11 @@ msgstr ""
 #: includes/fb-api-importer/class_facebook_import_api.php:117
 #: includes/fb-api-importer/class_facebook_import_api.php:164
 #: includes/fb-api-importer/class_facebook_import_api.php:205
-#: includes/fb-api-importer/class_import_wp_custom_events.php:223
-#: includes/fb-api-importer/class_import_wp_custom_events.php:231
-#: includes/fb-api-importer/class_import_wp_custom_events.php:267
-#: includes/fb-api-importer/class_import_wp_custom_events.php:276
-#: includes/fb-api-importer/class_import_wp_custom_events.php:317
+#: includes/fb-api-importer/class_import_wp_custom_events.php:249
+#: includes/fb-api-importer/class_import_wp_custom_events.php:257
+#: includes/fb-api-importer/class_import_wp_custom_events.php:293
+#: includes/fb-api-importer/class_import_wp_custom_events.php:302
+#: includes/fb-api-importer/class_import_wp_custom_events.php:343
 #: includes/fb-api-importer/class_import_wp_custom_post.php:162
 #: includes/fb-api-importer/class_import_wp_custom_post.php:262
 #: includes/fb-api-importer/class_import_wp_custom_post.php:297
@@ -161,22 +161,23 @@ msgid "Events successfully updated."
 msgstr "Veranstaltungen erfolgreich aktualisiert."
 
 #: admin/ajax/class_wp_facebook_importer_ajax.php:647
-#: includes/fb-api-importer/class_import_wp_custom_events.php:189
+#: includes/fb-api-importer/class_import_wp_custom_events.php:211
 msgid "Info"
 msgstr "Info"
 
-#: admin/ajax/class_wp_facebook_importer_ajax.php:745
+#: admin/ajax/class_wp_facebook_importer_ajax.php:757
 msgid "No limit"
 msgstr "keine Begrenzung"
 
-#: admin/ajax/class_wp_facebook_importer_ajax.php:764
-#: includes/trait_wp_facebook_importer_defaults.php:242
+#: admin/ajax/class_wp_facebook_importer_ajax.php:776
+#: includes/trait_wp_facebook_importer_defaults.php:243
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: admin/ajax/class_wp_facebook_importer_ajax.php:834
-msgid "Delete"
-msgstr "Löschen"
+#: admin/ajax/class_wp_facebook_importer_ajax.php:846
+#: includes/trait_wp_facebook_importer_defaults.php:242
+msgid "delete"
+msgstr "löschen"
 
 #: admin/class-wp-facebook-importer-admin.php:86
 #: admin/class-wp-facebook-importer-admin.php:87
@@ -200,7 +201,7 @@ msgstr "FB Seiten"
 #: admin/srv-api/class_srv_api_endpoint.php:179
 #: includes/endpoint/wp_facebook_importer_rest_endpoint.php:245
 msgid "Method not found."
-msgstr ""
+msgstr "Methode nicht gefunden."
 
 #: includes/class-wp-facebook-importer-activator.php:58
 msgid "Facebook Post"
@@ -286,27 +287,27 @@ msgstr ""
 "eine WordPress-Version größer als %s benötigt. Ihre PHP-Version kann von "
 "Ihrem Hosting-Anbieter aktualisiert werden."
 
-#: includes/class_wp_facebook_importer_helper.php:125
+#: includes/class_wp_facebook_importer_helper.php:126
 #: includes/trait_wp_facebook_importer_defaults.php:104
 msgid "Subscriber"
 msgstr "Abonnent"
 
-#: includes/class_wp_facebook_importer_helper.php:126
+#: includes/class_wp_facebook_importer_helper.php:127
 #: includes/trait_wp_facebook_importer_defaults.php:108
 msgid "Contributor"
 msgstr "Mitarbeiter"
 
-#: includes/class_wp_facebook_importer_helper.php:127
+#: includes/class_wp_facebook_importer_helper.php:128
 #: includes/trait_wp_facebook_importer_defaults.php:112
 msgid "Author"
 msgstr "Autor"
 
-#: includes/class_wp_facebook_importer_helper.php:128
+#: includes/class_wp_facebook_importer_helper.php:129
 #: includes/trait_wp_facebook_importer_defaults.php:116
 msgid "Editor"
 msgstr "Redakteur"
 
-#: includes/class_wp_facebook_importer_helper.php:129
+#: includes/class_wp_facebook_importer_helper.php:130
 #: includes/trait_wp_facebook_importer_defaults.php:120
 msgid "Administrator"
 msgstr "Administrator"
@@ -362,15 +363,15 @@ msgstr "keine Daten gefunden!"
 msgid "Logged in as "
 msgstr "Angemeldet als "
 
-#: includes/fb-api-importer/class_import_wp_custom_events.php:190
+#: includes/fb-api-importer/class_import_wp_custom_events.php:212
 msgid "Event has expired!"
 msgstr "Veranstaltung ist abgelaufen!"
 
-#: includes/fb-api-importer/class_import_wp_custom_events.php:224
+#: includes/fb-api-importer/class_import_wp_custom_events.php:250
 msgid "Event already available!"
 msgstr "Veranstaltung schon vorhanden!"
 
-#: includes/fb-api-importer/class_import_wp_custom_events.php:332
+#: includes/fb-api-importer/class_import_wp_custom_events.php:358
 msgid "Event"
 msgstr "Veranstaltung"
 
@@ -512,7 +513,7 @@ msgid "Synchronize events"
 msgstr "Veranstaltungen Synchronisieren"
 
 #: includes/trait_wp_facebook_importer_defaults.php:150
-#: includes/trait_wp_facebook_importer_defaults.php:257
+#: includes/trait_wp_facebook_importer_defaults.php:258
 msgid "Delete import"
 msgstr "Import löschen"
 
@@ -756,95 +757,95 @@ msgstr "Neuen Import erstellen"
 msgid "Display cronjob log"
 msgstr "CronJob Log anzeigen"
 
-#: includes/trait_wp_facebook_importer_defaults.php:222
+#: includes/trait_wp_facebook_importer_defaults.php:221
+msgid "next update"
+msgstr "Nächstes Update"
+
+#: includes/trait_wp_facebook_importer_defaults.php:223
 msgid "The date of the last synchronization is reset."
 msgstr "Das Datum der letzten Synchronisation wird zurückgesetzt."
 
-#: includes/trait_wp_facebook_importer_defaults.php:226
+#: includes/trait_wp_facebook_importer_defaults.php:227
 msgid "Designation"
 msgstr "Bezeichnung"
 
-#: includes/trait_wp_facebook_importer_defaults.php:228
+#: includes/trait_wp_facebook_importer_defaults.php:229
 msgid "Max. Import"
 msgstr "Max. Import"
 
-#: includes/trait_wp_facebook_importer_defaults.php:229
+#: includes/trait_wp_facebook_importer_defaults.php:230
 msgid "Import"
 msgstr "Import"
 
-#: includes/trait_wp_facebook_importer_defaults.php:230
+#: includes/trait_wp_facebook_importer_defaults.php:231
 msgid "User ID"
 msgstr "User-ID"
 
-#: includes/trait_wp_facebook_importer_defaults.php:231
+#: includes/trait_wp_facebook_importer_defaults.php:232
 msgid "Page ID"
 msgstr "Seiten-ID"
 
-#: includes/trait_wp_facebook_importer_defaults.php:232
+#: includes/trait_wp_facebook_importer_defaults.php:233
 msgid "User active"
 msgstr "User aktiv"
 
-#: includes/trait_wp_facebook_importer_defaults.php:233
+#: includes/trait_wp_facebook_importer_defaults.php:234
 msgid "Post Category"
 msgstr "Post Kategorie"
 
-#: includes/trait_wp_facebook_importer_defaults.php:234
+#: includes/trait_wp_facebook_importer_defaults.php:235
 msgid "Event Category"
 msgstr "Event Kategorie"
 
-#: includes/trait_wp_facebook_importer_defaults.php:235
+#: includes/trait_wp_facebook_importer_defaults.php:236
 msgid "Start post"
 msgstr "Start Post"
 
-#: includes/trait_wp_facebook_importer_defaults.php:236
+#: includes/trait_wp_facebook_importer_defaults.php:237
 msgid "End post"
 msgstr "Ende Post"
 
-#: includes/trait_wp_facebook_importer_defaults.php:237
+#: includes/trait_wp_facebook_importer_defaults.php:238
 msgid "Start event"
 msgstr "Start Event"
 
-#: includes/trait_wp_facebook_importer_defaults.php:238
+#: includes/trait_wp_facebook_importer_defaults.php:239
 msgid "End event"
 msgstr "Ende Event"
 
-#: includes/trait_wp_facebook_importer_defaults.php:239
+#: includes/trait_wp_facebook_importer_defaults.php:240
 msgid "Event status"
 msgstr "Event Status"
 
-#: includes/trait_wp_facebook_importer_defaults.php:240
+#: includes/trait_wp_facebook_importer_defaults.php:241
 msgid "Post status"
 msgstr "Post Status"
 
-#: includes/trait_wp_facebook_importer_defaults.php:241
-msgid "delete"
-msgstr "löschen"
-
-#: includes/trait_wp_facebook_importer_defaults.php:246
+#: includes/trait_wp_facebook_importer_defaults.php:247
 msgid "Create a new category"
 msgstr "Neue Kategorie erstellen"
 
-#: includes/trait_wp_facebook_importer_defaults.php:247
+#: includes/trait_wp_facebook_importer_defaults.php:248
 msgid "Name"
 msgstr "Name"
 
-#: includes/trait_wp_facebook_importer_defaults.php:248
+#: includes/trait_wp_facebook_importer_defaults.php:249
 msgid "This name is then displayed on the website"
 msgstr "Dieser Name wird auf der Website angezeigt"
 
-#: includes/trait_wp_facebook_importer_defaults.php:249
+#: includes/trait_wp_facebook_importer_defaults.php:250
 msgid "Title form"
 msgstr "Titelform"
 
-#: includes/trait_wp_facebook_importer_defaults.php:250
+#: includes/trait_wp_facebook_importer_defaults.php:251
 msgid "create"
 msgstr "Erstellen"
 
-#: includes/trait_wp_facebook_importer_defaults.php:251
+#: includes/trait_wp_facebook_importer_defaults.php:252
 msgid "cancel"
 msgstr "Abbrechen"
 
-#: includes/trait_wp_facebook_importer_defaults.php:252
+#: includes/trait_wp_facebook_importer_defaults.php:253
 msgid ""
 "The \"title form\" is the readable URL variant of the name. It usually "
 "consists only of lower case letters, numbers and hyphens."
@@ -852,33 +853,33 @@ msgstr ""
 "Die „Titelform“ ist die lesbare URL-Variante des Namens. Sie besteht "
 "normalerweise nur aus Kleinbuchstaben, Zahlen und Bindestrichen."
 
-#: includes/trait_wp_facebook_importer_defaults.php:253
+#: includes/trait_wp_facebook_importer_defaults.php:254
 msgid "Description"
 msgstr "Beschreibung"
 
-#: includes/trait_wp_facebook_importer_defaults.php:254
+#: includes/trait_wp_facebook_importer_defaults.php:255
 msgid ""
 "The description is not always displayed. In some themes it may be displayed."
 msgstr "Die Beschreibung wird nicht immer angezeigt."
 
-#: includes/trait_wp_facebook_importer_defaults.php:255
+#: includes/trait_wp_facebook_importer_defaults.php:256
 msgid "Really delete all posts?"
 msgstr "Alle Beiträge wirklich löschen?"
 
-#: includes/trait_wp_facebook_importer_defaults.php:256
-#: includes/trait_wp_facebook_importer_defaults.php:267
+#: includes/trait_wp_facebook_importer_defaults.php:257
+#: includes/trait_wp_facebook_importer_defaults.php:268
 msgid "Delete import really?"
 msgstr "Import wirklich löschen?"
 
-#: includes/trait_wp_facebook_importer_defaults.php:258
+#: includes/trait_wp_facebook_importer_defaults.php:259
 msgid "Delete posts"
 msgstr "Beiträge löschen"
 
-#: includes/trait_wp_facebook_importer_defaults.php:259
+#: includes/trait_wp_facebook_importer_defaults.php:260
 msgid "Delete posts?"
 msgstr "Beiträge löschen?"
 
-#: includes/trait_wp_facebook_importer_defaults.php:260
+#: includes/trait_wp_facebook_importer_defaults.php:261
 msgid ""
 "All posts and events will be irrevocably deleted! The deletion can not be "
 "undone."
@@ -886,21 +887,21 @@ msgstr ""
 "Alle Beiträge und Veranstaltungen werden unwiderruflich gelöscht! Das "
 "löschen kann nicht rückgängig gemacht werden."
 
-#: includes/trait_wp_facebook_importer_defaults.php:261
+#: includes/trait_wp_facebook_importer_defaults.php:262
 msgid "All posts will be irrevocably deleted! The deletion can not be undone."
 msgstr ""
 "Alle Beiträge werden unwiderruflich gelöscht! Das löschen kann nicht "
 "rückgängig gemacht werden."
 
-#: includes/trait_wp_facebook_importer_defaults.php:262
+#: includes/trait_wp_facebook_importer_defaults.php:263
 msgid "Delete all events"
 msgstr "Alle Events löschen"
 
-#: includes/trait_wp_facebook_importer_defaults.php:263
+#: includes/trait_wp_facebook_importer_defaults.php:264
 msgid "Really delete all events?"
 msgstr "Alle Events wirklich löschen?"
 
-#: includes/trait_wp_facebook_importer_defaults.php:264
+#: includes/trait_wp_facebook_importer_defaults.php:265
 msgid "All events will be irrevocably deleted! The deletion can not be undone."
 msgstr ""
 "Alle Events werden unwiderruflich gelöscht! Das löschen kann nicht "
@@ -927,6 +928,9 @@ msgstr "Unbekannter Update-Checker-Status \"%s\""
 #: includes/update-checker/yahnis-elsts/plugin-update-checker/Puc/v4p11/Vcs/PluginUpdateChecker.php:98
 msgid "There is no changelog available."
 msgstr "Es ist kein Change Log verfügbar."
+
+#~ msgid "Delete"
+#~ msgstr "Löschen"
 
 #~ msgid "Synchronisation successful"
 #~ msgstr "Synchronisierung erfolgreich"

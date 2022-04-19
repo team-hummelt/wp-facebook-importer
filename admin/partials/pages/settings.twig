@@ -2,7 +2,7 @@
 {% block content %}
 
     <div class="bg-light card px-3 pt-3 pb-5">
-        <div class="col-xxl-8 col-12 bg-custom-gray my-3 mx-auto">
+        <div class="col-xxl-8 col-12  my-3 mx-auto">
             <form class="sendAdminAjaxForm">
                 <input type="hidden" name="method" value="set_plugin_settings">
                 <div class="border rounded shadow-sm p-3 bg-custom-gray">
@@ -66,13 +66,16 @@
                         </div>
                     </div>
 
-                    {% if var.next_cron_date %}
-                        <small class="small next-sync-time">
-                            <i class="text-success bi bi-clock-history me-1"></i>
+                    <div class="cron-time next-sync-time {% if not var.next_cron_date or not s.cron_aktiv %}d-none{% endif %}">
+                        <small class="small">
                             {{ l.next_synchronisierung_am }}&nbsp;<span class="font-strong">{{ var.next_cron_date }}
                     </span> {{ l.um }}&nbsp;<span class="font-strong">{{ var.next_cron_time }}</span> {{ l.Uhr }}
                         </small>
-                    {% endif %}
+                        <small class="d-block small">
+                            <i class="text-success bi bi-clock-history me-1"></i>
+                            <span id="nextSyncTime"></span>
+                        </small>
+                    </div>
                     <hr>
                     <div class="row g-3">
 

@@ -69,9 +69,17 @@
                 </div>
                 <div class="my-3">
                     <hr>
-                    <button data-type="all-log" data-id="0" class="btn-delete-log btn btn-outline-danger" {% if not log_status %}disabled{% endif %}>
+                    <div class="d-flex flex-wrap">
+                    <button data-type="log-aktualisieren" data-id="0" class="btn-form-action btn btn-blue-outline me-1">
+                        <i class="bi-spin-slow bi bi-bootstrap-reboot me-1"></i>Aktualisieren </button>
+                    <button data-type="all-log" data-id="0" class="btn-delete-log btn btn-outline-danger ms-xl-auto">
                         <i class="bi bi-trash me-1"></i>Alle Einträge löschen </button>
+                    </div>
                 </div>
+                <small class="d-block small {% if not s.cron_aktiv %}d-none{% endif %}">
+                    <i class="text-success bi bi-clock-history me-1"></i> {{ l.next_update }}
+                    <span id="nextSyncTime"></span>
+                </small>
             </div>
             <div class="collapse" id="collapseEditFBSite" data-bs-parent="#displayDataParent"></div>
             <div class="collapse" id="collapseAddFBSite" data-bs-parent="#displayDataParent">

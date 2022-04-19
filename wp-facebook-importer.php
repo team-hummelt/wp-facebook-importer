@@ -16,7 +16,7 @@
  * Plugin Name:       WP Facebook Importer
  * Plugin URI:        https://wwdh.de/plugins
  * Description:       Import and sync Facebook API posts.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Author:            Jens Wiecker
  * Author URI:        https://wwdh.de
  * License:           MIT License
@@ -25,7 +25,7 @@
  * Requires PHP:      7.4
  * Requires at least: 5.6
  * Tested up to:      5.9.3
- * Stable tag:        1.0.0
+ * Stable tag:        1.0.1
  */
 
 // If this file is called directly, abort.
@@ -37,7 +37,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Currently DATABASE VERSION
  * @since             1.0.0
  */
-const WP_FACEBOOK_IMPORTER_DB_VERSION = '1.0.1';
+const WP_FACEBOOK_IMPORTER_DB_VERSION = '1.0.4';
 
 /**
  * MIN PHP VERSION for Activate

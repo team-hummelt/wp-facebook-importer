@@ -1,6 +1,7 @@
 {
   "name": "WP Facebook-Importer",
   "type": "plugin",
+  "version": "",
   "basename": "",
   "rest_aktiv" : "1",
   "rest_url" : "",

@@ -4,6 +4,7 @@ namespace WPFacebook\Importer;
 use DateTime;
 use DateTimeZone;
 use Exception;
+use IntlDateFormatter;
 use Wp_Facebook_Importer;
 use stdClass;
 
@@ -307,8 +308,12 @@ class WP_Facebook_Importer_Helper
     /**
      * @throws Exception
      */
-    public function convert_event_time(DateTime $datetime): string
+    public function convert_event_time($datetime): string
     {
+        if(!$datetime){
+            return date('Y-m-d H:i:s', current_time('timestamp'));
+        }
+
         $date = new DateTime($datetime->format('Y-m-d H:i:s'));
         return $date->format('Y-m-d H:i:s');
     }
@@ -333,12 +338,44 @@ class WP_Facebook_Importer_Helper
         $logDir = $this->main->get_api_dir() . 'log' . DIRECTORY_SEPARATOR;
 
         if(!is_dir($logDir)){
-            mkdir($logDir, 0755, true);
+            mkdir($logDir, 0777, true);
         }
         $logFile = 'api.log';
         $msg = $type . '|' . current_time('mysql') . '|' . $message;
         $msg .= "\r\n";
 
         @file_put_contents($logDir . $logFile, $msg, FILE_APPEND);
+    }
+
+    public function formatLanguage(DateTime $dt, string $format, string $language = 'en'): string
+    {
+        $curTz = $dt->getTimezone();
+        if ($curTz->getName() === 'Z') {
+            //INTL don't know Z
+            $curTz = new DateTimeZone('Europe/Berlin');
+        }
+
+        $formatPattern = strtr($format, array(
+            'D' => '{#1}',
+            'l' => '{#2}',
+            'M' => '{#3}',
+            'F' => '{#4}',
+        ));
+        $strDate = $dt->format($formatPattern);
+        $regEx = '~\{#\d}~';
+        while (preg_match($regEx, $strDate, $match)) {
+            $IntlFormat = strtr($match[0], array(
+                '{#1}' => 'E',
+                '{#2}' => 'EEEE',
+                '{#3}' => 'MMM',
+                '{#4}' => 'MMMM',
+            ));
+            $fmt = datefmt_create($language, IntlDateFormatter::FULL, IntlDateFormatter::FULL,
+                $curTz, IntlDateFormatter::GREGORIAN, $IntlFormat);
+            $replace = $fmt ? datefmt_format($fmt, $dt) : "???";
+            $strDate = str_replace($match[0], $replace, $strDate);
+        }
+
+        return $strDate;
     }
 }
