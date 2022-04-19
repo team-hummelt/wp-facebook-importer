@@ -218,6 +218,7 @@ trait WP_Facebook_Importer_Defaults {
                 'formular_headline_update'=> __('Settings for import','wp-facebook-importer'),
                 'formular_headline_new'=> __('Create new import','wp-facebook-importer'),
                 'btn_cronjob_log' => __('Display cronjob log', 'wp-facebook-importer'),
+                'next_update' => __('next update', 'wp-facebook-importer'),
                 //ToolTip
                 'tooltip_reset_sync' => __('The date of the last synchronization is reset.','wp-facebook-importer')
 

@@ -12,8 +12,8 @@
 * Tags: facebook, facebook api
 * Requires at least: 5.6
 * Tested up to: 5.9
-* Stable tag: 1.0.0
-* Version: 1.0.0
+* Stable tag: 1.0.1
+* Version: 1.0.1
 * Requires PHP: 7.4
 * License: MIT License
 
@@ -22,6 +22,9 @@
 Import and sync Facebook API posts.
 ***
 ### Changelog
+
+### 1.0.1
+* Bugs fixed and update option added
 
 ### 1.0.0
 * WP Facebook Imports release. Included basic plugin features.

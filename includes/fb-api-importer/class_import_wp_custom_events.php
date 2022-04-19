@@ -171,25 +171,51 @@ class Import_WP_Custom_Events
         $record->is_canceled = $fbData['is_canceled'];
         $record->is_draft = $fbData['is_canceled'];
         $record->name = $fbData['name'];
-        if ($fbData['place']) {
+        if (isset($fbData['place']) && $fbData['place']) {
             $record->place = json_encode($fbData['place']);
         } else {
             $record->place = false;
         }
 
-        $record->start_time = $this->helper->convert_event_time($fbData['start_time']);
-        $record->end_time = $this->helper->convert_event_time($fbData['end_time']);
-        $record->post_modified = $this->helper->convert_datetime($fbData['updated_time']);
-        $record->description = $fbData['description'];
-        $endString = strtotime($record->end_time);
-        $now = current_time('timestamp');
 
-        if ($endString - $now < 0) {
-            $return->status = 'warning';
-            $return->title = __('Info', 'wp-facebook-importer');
-            $return->msg = __('Event has expired!', 'wp-facebook-importer');
-            return $return;
+        if(isset($fbData['end_time']) && $fbData['end_time']){
+            $record->end_time = $this->helper->convert_event_time($fbData['end_time']);
+        } else {
+            $record->end_time= '';
         }
+
+        if(isset($fbData['start_time']) && $fbData['start_time']){
+            $record->start_time = $this->helper->convert_event_time($fbData['start_time']);
+        } else {
+            $record->start_time = '';
+        }
+
+        if(isset($fbData['updated_time']) && $fbData['updated_time']){
+            $record->post_modified = $this->helper->convert_datetime($fbData['updated_time']);
+        } else {
+            $record->post_modified = '';
+        }
+
+
+        //$record->start_time = $this->helper->convert_event_time($fbData['start_time']);
+       // $record->end_time = $this->helper->convert_event_time($fbData['end_time']);
+       // $record->post_modified = $this->helper->convert_datetime($fbData['updated_time']);
+
+        isset($fbData['description']) && $fbData['description'] ? $record->description = $fbData['description'] : $record->description = 'no-content';
+        if($record->end_time) {
+            $endString = strtotime($record->end_time);
+            $now = current_time('timestamp');
+
+            if ($endString - $now < 0) {
+                $return->status = 'warning';
+                $return->title = __('Info', 'wp-facebook-importer');
+                $return->msg = __('Event has expired!', 'wp-facebook-importer');
+                return $return;
+            }
+        } else {
+            $record->end_time = date('Y-m-d H:i:s', current_time('timestamp'));
+        }
+
 
         if($this->db->check_double_post($fbData['id'])){
             $this->db->delete_post_by_fb_id($fbData['id'], 'event');
@@ -270,7 +296,7 @@ class Import_WP_Custom_Events
         }
 
 
-        //TODO Kategorie für neuen Beitrag setzen
+        //JOB Kategorie für neuen Beitrag setzen
        $setTerms = wp_set_object_terms($wp_post_id, array($term->term_id), $term->taxonomy);
         if (is_wp_error($setTerms)) {
             $return->title = __('Error', 'wp-facebook-importer');

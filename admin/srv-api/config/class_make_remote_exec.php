@@ -90,16 +90,27 @@ class Make_Remote_Exec
         $this->version = $version;
         $this->main = $main;
         if (!get_option("{$this->basename}_update_config")) {
-            $config = $this->main->get_plugin_api_config();
-            $config->rest_url = site_url().'/wp-json/plugin/' . $this->basename . '/v' . $this->main->get_version() . '/';
-            $config->site_url = site_url();
-            $config->license = 0;
-            $config->basename = $this->basename;
-            update_option("{$this->basename}_update_config", $config);
+            $this->make_json_config();
+            $this->config = get_option("{$this->basename}_update_config");
+        } else {
+            $config = get_option("{$this->basename}_update_config");
+            if(!isset($config->basename) || !$config->basename){
+                delete_option("{$this->basename}_update_config");
+                $this->make_json_config();
+                $this->config = get_option("{$this->basename}_update_config");
+            }
         }
+         //$this->check_is_plugin_aktiv();
+    }
 
-        $this->config = get_option("{$this->basename}_update_config");
-        //$this->check_is_plugin_aktiv();
+    private function make_json_config() {
+        $config = $this->main->get_plugin_api_config();
+        $config->rest_url = site_url().'/wp-json/plugin/' . $this->basename . '/v' . $this->main->get_version() . '/';
+        $config->site_url = site_url();
+        $config->license = 0;
+        $config->version = $this->version;
+        $config->basename = $this->basename;
+        update_option("{$this->basename}_update_config", $config);
     }
 
     public function make_api_exec_job($method, $body)

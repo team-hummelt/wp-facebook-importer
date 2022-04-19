@@ -283,8 +283,8 @@ class WP_Facebook_Importer_Ajax
 
                 $postTerm = apply_filters($this->basename . '/get_term_by_term_id', $import->post_term);
                 $eventTerm = apply_filters($this->basename . '/get_term_by_term_id', $import->event_term);
-                $postTerm ? $import->post_term_select = $postTerm->term_id : $import->post_term_select = '';
-                $eventTerm ? $import->event_term_select = $eventTerm->term_id : $import->event_term_select = '';
+                $postTerm ? $import->post_term_select = $postTerm->term->term_id : $import->post_term_select = '';
+                $eventTerm ? $import->event_term_select = $eventTerm->term->term_id : $import->event_term_select = '';
 
                 $siteLang = $this->get_plugin_defaults('language_formulare');
                 $modalLang = $this->get_plugin_defaults('language_modal');
@@ -695,6 +695,18 @@ class WP_Facebook_Importer_Ajax
                         break;
                 }
                   $responseJson->status = true;
+                break;
+            case'get_next_sync_time':
+                $settings = apply_filters($this->basename.'/get_plugin_settings','');
+                if(!$settings->status){
+                    return  $responseJson;
+                }
+                if(!$settings->record->cron_aktiv){
+                    return $responseJson;
+                }
+                $nextTime = apply_filters($this->basename . '/get_next_cron_time', 'fb_api_plugin_sync');
+                $responseJson->status = true;
+                $responseJson->next_time = date('Y-m-d H:i:s', current_time('timestamp') + $nextTime);
                 break;
 
             case'imports_data_table':

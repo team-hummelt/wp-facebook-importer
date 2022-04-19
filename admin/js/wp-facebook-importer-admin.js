@@ -82,13 +82,34 @@ document.addEventListener("DOMContentLoaded", function () {
         getCronJobDataTable();
     }
 
+    if (urlParams.get('page') === 'wp-facebook-importer-settings') {
+        let formData = {
+            'method':'get_next_sync_time'
+        }
+        api_xhr_experience_reports_form_data(formData, false, set_next_sync_timestamp_callback);
+
+    }
+
+    function set_next_sync_timestamp_callback() {
+        let data = JSON.parse(this.responseText);
+        if(data.status){
+            let endtime = new Date(data.next_time);
+            initializeClock('#nextSyncTime', endtime);
+        }
+    }
+
     jQuery(document).on('click', '.btn-collapse-toggle', function () {
         let btnCol = jQuery('.btn-collapse-toggle');
         btnCol.prop('disabled', false).removeClass('active');
         jQuery(this).prop('disabled', true).addClass('active');
         ImportTableDetails.draw('page');
         if(jQuery(this).attr('data-load') == 'log-table'){
-        cronJobTable.draw('page')
+        cronJobTable.draw('page');
+            let formData = {
+                'method':'get_next_sync_time'
+            }
+            api_xhr_experience_reports_form_data(formData, false, set_next_sync_timestamp_callback);
+
         }
     });
 
@@ -231,6 +252,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
                 api_xhr_experience_reports_form_data(formData, false, sync_post_events_callback)
                 break;
+            case'log-aktualisieren':
+                cronJobTable.draw('page');
+                break;
         }
     });
 
@@ -305,11 +329,16 @@ document.addEventListener("DOMContentLoaded", function () {
         if (jQuery(this).prop('checked')) {
             jQuery(target).prop('disabled', false);
             syncTime.removeClass('d-none');
+            let formData = {
+                'method':'get_next_sync_time'
+            }
+            api_xhr_experience_reports_form_data(formData, false, set_next_sync_timestamp_callback);
         } else {
             jQuery(target).prop('disabled', true);
             syncTime.addClass('d-none');
         }
     });
+
 
     jQuery(document).on('click', '.show-access-token', function () {
         let inputToken = jQuery('#inputToken');
@@ -484,6 +513,46 @@ document.addEventListener("DOMContentLoaded", function () {
         let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl)
         })
+    }
+
+    /** ============================================================
+     * ======================= COUNTDOWN UHR =======================
+     * =============================================================*/
+    function getTimeRemaining(endtime) {
+        const total = Date.parse(endtime) - Date.parse(new Date());
+        const seconds = Math.floor((total / 1000) % 60);
+        const minutes = Math.floor((total / 1000 / 60) % 60);
+        const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
+        const days = Math.floor(total / (1000 * 60 * 60 * 24));
+
+        return {
+            total,
+            days,
+            hours,
+            minutes,
+            seconds
+        };
+    }
+
+    function initializeClock(target, endtime) {
+
+        if(!target){
+            return false;
+        }
+        const timeinterval = setInterval(() => {
+            const t = getTimeRemaining(endtime);
+            const clock = document.querySelector(target);
+            clock.innerHTML = `<small><span class="lh-1 font-strong">${t.days > 0 ? t.days + ' Day(s) '  : ''} ${('0' + t.hours).slice(-2)}:${('0' + t.minutes).slice(-2)}:${('0' + t.seconds).slice(-2)}</span></small>`;
+            if (t.total <= 0) {
+                clearInterval(timeinterval);
+                setInterval(() => {
+                    let formData = {
+                        'method':'get_next_sync_time'
+                    }
+                    api_xhr_experience_reports_form_data(formData, false, set_next_sync_timestamp_callback);
+                },1500);
+            }
+        }, 1000);
     }
 
     function success_message(msg) {

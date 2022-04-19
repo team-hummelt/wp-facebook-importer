@@ -151,12 +151,12 @@ class Import_WP_Custom_Post
                 continue;
             }
 
-            if ($imports->import_no_image && !$tmp['full_picture']) {
+            if ($imports->import_no_image && !isset($tmp['full_picture']) || !$tmp['full_picture']) {
                 continue;
             }
 
             $makePost = $this->sync_post_imports($tmp, $imports);
-            if (!$makePost->status) {
+            if (!isset($makePost->status) || !$makePost->status) {
                 $err_item = [
                     'fb_id' => $tmp['id'],
                     'title' => __('Error'),
