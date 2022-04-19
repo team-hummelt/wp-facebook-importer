@@ -292,6 +292,7 @@ class WP_Facebook_Importer_Ajax
                 $select_sync_interval = $this->get_plugin_defaults('select_api_sync_interval');
                 $select_max_post_sync = $this->get_plugin_defaults('max_post_sync');
                 $lang = wp_parse_args($siteLang, $modalLang);
+                $log = apply_filters($this->basename.'/get_plugin_syn_log','');
 
                 $limit = 5;
                 $selectFrom = [];
@@ -339,6 +340,7 @@ class WP_Facebook_Importer_Ajax
                 $termsSelect->status ? $kategorie = $termsSelect->terms : $kategorie = false;
                 $template = '';
                 $twigData = [
+                    'log_status' => $log->status,
                     'data' => $import,
                     'version' => $this->version,
                     'cat_select' => $kategorie,
@@ -675,6 +677,25 @@ class WP_Facebook_Importer_Ajax
                 $responseJson->msg = __('Changes saved successfully.', 'wp-facebook-importer');
                 $responseJson->title = __('saved', 'wp-facebook-importer');
                 break;
+            case'delete_log':
+                $type = filter_input(INPUT_POST, 'type', FILTER_SANITIZE_STRING);
+
+                switch ($type){
+                    case'one-log':
+                        $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+                        apply_filters($this->basename.'/delete_plugin_syn_log', $id);
+                        break;
+                    case'all-log':
+                         $log = apply_filters($this->basename.'/get_plugin_syn_log','');
+                         if($log->status){
+                             foreach ($log->record as $tmp){
+                                 apply_filters($this->basename.'/delete_plugin_syn_log', $tmp->id);
+                             }
+                         }
+                        break;
+                }
+                  $responseJson->status = true;
+                break;
 
             case'imports_data_table':
                 $query = '';
@@ -752,6 +773,76 @@ class WP_Facebook_Importer_Ajax
                     "data" => $data_arr
                 ];
 
+                break;
+
+            case'cronjob_data_table':
+                $query = '';
+                $columns = [
+                    "im.bezeichnung",
+                    "im.post_term",
+                    "im.event_term",
+                    "sl.start_post",
+                    "sl.end_post",
+                    "sl.post_status",
+                    "sl.start_event",
+                    "sl.end_event",
+                    "sl.event_status",
+                    ""];
+
+                if (isset($_POST['search']['value'])) {
+                    $query = ' WHERE im.bezeichnung LIKE "%' . $_POST['search']['value'] . '%"
+                    ';
+                }
+                if (isset($_POST['order'])) {
+                    $query .= ' ORDER BY ' . $columns[$_POST['order']['0']['column']] . ' ' . $_POST['order']['0']['dir'] . ' ';
+                } else {
+                    $query .= ' ORDER BY created_at ASC';
+                }
+
+                $limit = '';
+                if ($_POST["length"] != -1) {
+                    $limit = ' LIMIT ' . $_POST['start'] . ', ' . $_POST['length'];
+                }
+
+                $table = apply_filters($this->basename.'/get_plugin_syn_log', $query . $limit);
+                $data_arr = [];
+                if (!$table->status) {
+                    return [
+                        "draw" => $_POST['draw'],
+                        "recordsTotal" => 0,
+                        "recordsFiltered" => 0,
+                        "data" => $data_arr
+                    ];
+                }
+
+                foreach ($table->record as $tmp) {
+                    $post_term = apply_filters($this->basename . '/get_term_by_term_id', $tmp->post_term);
+                    $event_term = apply_filters($this->basename . '/get_term_by_term_id', $tmp->event_term);
+                    $tmp->post_status ? $statusPost = 'text-success bi bi-check-circle' : $statusPost = 'text-danger bi bi-x-circle';
+                    $tmp->event_status ? $statusEvent = 'text-success bi bi-check-circle' : $statusEvent = 'text-danger bi bi-x-circle';
+
+                    $data_item = [];
+                    $data_item[] = '<span class="font-strong">' . $tmp->bezeichnung . '</span>';
+                    $data_item[] = '<span class="d-block small lh-2">' . $post_term->term->name . '</span>';
+                    $data_item[] = '<span class="d-none">' . $tmp->start_post . '</span><span class="small d-block lh-1">' . date('d.m.Y', $tmp->start_post) . '</span><span class="small-lg">' . date('H:i:s', $tmp->start_post) . '</span>';
+                    $data_item[] = '<span class="d-none">' . $tmp->end_post . '</span><span class="small d-block lh-1">' . date('d.m.Y', $tmp->end_post) . '</span><span class="small-lg">' . date('H:i:s', $tmp->end_post) . '</span>';
+                    $data_item[] = '<span class="d-none">'.$tmp->post_status.'</span><i class="'.$statusPost.'"></i>';
+                    $data_item[] = '<span class="d-block small lh-2">' . $event_term->term->name . '</span>';
+                    $data_item[] = '<span class="d-none">' . $tmp->start_event . '</span><span class="small d-block lh-1">' . date('d.m.Y', $tmp->start_event) . '</span><span class="small-lg">' . date('H:i:s', $tmp->start_event) . '</span>';
+                    $data_item[] = '<span class="d-none">' . $tmp->end_event . '</span><span class="small d-block lh-1">' . date('d.m.Y', $tmp->end_event) . '</span><span class="small-lg">' . date('H:i:s', $tmp->end_event) . '</span>';
+                    $data_item[] = '<span class="d-none">'.$tmp->event_status.'</span><i class="'.$statusEvent.'"></i>';
+                    $data_item[] = '<button data-type="one-log" data-id="' . $tmp->id . '" class="btn-delete-log btn btn-outline-danger btn-table text-nowrap"><i class="bi bi-trash me-1"></i> ' . __('delete', 'wp-facebook-importer') . ' </button>';
+                    $data_arr[] = $data_item;
+                }
+
+
+                $importCount = apply_filters($this->basename . '/get_plugin_syn_log', '');
+                $responseJson = [
+                    "draw" => $_POST['draw'],
+                    "recordsTotal" => $importCount->count,
+                    "recordsFiltered" => $importCount->count,
+                    "data" => $data_arr
+                ];
                 break;
         }
 

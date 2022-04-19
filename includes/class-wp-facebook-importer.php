@@ -277,10 +277,6 @@ class Wp_Facebook_Importer
             $this->plugin_api_config = (object) [];
         }
 
-
-
-
-
         $this->set_locale();
         $this->register_post_selector_database_handle();
 
@@ -302,10 +298,6 @@ class Wp_Facebook_Importer
 
         $this->define_admin_hooks();
         $this->define_public_hooks();
-
-
-
-
     }
 
     /**
@@ -628,6 +620,10 @@ class Wp_Facebook_Importer
         $this->loader->add_filter($this->plugin_name . '/delete_old_wp_facebook_posts', $FbImporterDatabase, 'delete_old_wp_facebook_posts', 10, 2);
         $this->loader->add_filter($this->plugin_name . '/get_wp_facebook_import_count', $FbImporterDatabase, 'get_wp_facebook_import_count', 10, 3);
 
+        //LOG
+        $this->loader->add_filter($this->plugin_name . '/set_plugin_syn_log', $FbImporterDatabase, 'set_plugin_syn_log');
+        $this->loader->add_filter($this->plugin_name . '/delete_plugin_syn_log', $FbImporterDatabase, 'delete_plugin_syn_log');
+        $this->loader->add_filter($this->plugin_name . '/get_plugin_syn_log', $FbImporterDatabase, 'get_plugin_syn_log');
 
     }
 

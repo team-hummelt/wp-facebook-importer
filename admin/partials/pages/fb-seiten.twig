@@ -15,7 +15,12 @@
                     class="btn-collapse-toggle btn btn-blue-outline btn-sm my-2">
                 <i class="bi bi-plus-circle me-1"></i>{{ l.Import_new_content }}
             </button>
-            <span class="update_user_role ajax-status-spinner ms-auto"></span>
+            <button data-load="log-table"
+                    type="button" data-bs-toggle="collapse" data-bs-target="#collapseCronJobTable"
+                    aria-expanded="true" aria-controls="collapseCronJobTable"
+                    class="btn-collapse-toggle btn btn-blue-outline ms-auto btn-sm my-2">
+                <i class="bi bi-card-list me-1"></i>{{ l.btn_cronjob_log }}
+            </button>
         </div>
         <hr>
         <div id="displayDataParent">
@@ -42,6 +47,32 @@
                     <small class="small text-muted">1<sup>*</sup> {{ l.user_id_help }}</small>
                 </div>
             </div><!--collapse-->
+
+            <div class="collapse" id="collapseCronJobTable" data-bs-parent="#displayDataParent">
+                <div id="TableWrapper" class="table-responsive-xxl">
+                    <table id="TableCronJob" class="table table-bordered w-100 table-striped">
+                        <thead>
+                        <tr>
+                            <th>{{ tl.Import }}</th>
+                            <th class="text-nowrap">{{ tl.Post_Category }}</th>
+                            <th class="text-nowrap">{{ tl.Start_Post }}</th>
+                            <th class="text-nowrap">{{ tl.End_Post }}</th>
+                            <th class="text-nowrap">{{ tl.Post_Status }}</th>
+                            <th class="text-nowrap">{{ tl.Event_Category }}</th>
+                            <th class="text-nowrap">{{ tl.Start_Event }}</th>
+                            <th class="text-nowrap">{{ tl.End_Event }}</th>
+                            <th class="text-nowrap">{{ tl.Event_Status }}</th>
+                            <th>{{ tl.delete }}</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="my-3">
+                    <hr>
+                    <button data-type="all-log" data-id="0" class="btn-delete-log btn btn-outline-danger" {% if not log_status %}disabled{% endif %}>
+                        <i class="bi bi-trash me-1"></i>Alle Einträge löschen </button>
+                </div>
+            </div>
             <div class="collapse" id="collapseEditFBSite" data-bs-parent="#displayDataParent"></div>
             <div class="collapse" id="collapseAddFBSite" data-bs-parent="#displayDataParent">
                 {{ include('@widget/import-formular.twig') }}

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WP-Facebook Importer v1.0.0\n"
-"POT-Creation-Date: 2022-04-18 14:04+0200\n"
-"PO-Revision-Date: 2022-04-18 14:04+0200\n"
+"POT-Creation-Date: 2022-04-19 01:54+0200\n"
+"PO-Revision-Date: 2022-04-19 01:56+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -26,23 +26,23 @@ msgstr ""
 #: admin/ajax/class_wp_facebook_importer_ajax.php:244
 #: admin/ajax/class_wp_facebook_importer_ajax.php:268
 #: admin/ajax/class_wp_facebook_importer_ajax.php:275
-#: admin/ajax/class_wp_facebook_importer_ajax.php:544
-#: admin/ajax/class_wp_facebook_importer_ajax.php:588
-#: admin/ajax/class_wp_facebook_importer_ajax.php:604
-#: admin/ajax/class_wp_facebook_importer_ajax.php:612
-#: admin/ajax/class_wp_facebook_importer_ajax.php:628
+#: admin/ajax/class_wp_facebook_importer_ajax.php:548
+#: admin/ajax/class_wp_facebook_importer_ajax.php:596
+#: admin/ajax/class_wp_facebook_importer_ajax.php:613
+#: admin/ajax/class_wp_facebook_importer_ajax.php:621
+#: admin/ajax/class_wp_facebook_importer_ajax.php:638
 #: includes/fb-api-importer/class_facebook_import_api.php:117
 #: includes/fb-api-importer/class_facebook_import_api.php:164
 #: includes/fb-api-importer/class_facebook_import_api.php:205
-#: includes/fb-api-importer/class_import_wp_custom_events.php:215
 #: includes/fb-api-importer/class_import_wp_custom_events.php:223
-#: includes/fb-api-importer/class_import_wp_custom_events.php:259
-#: includes/fb-api-importer/class_import_wp_custom_events.php:268
-#: includes/fb-api-importer/class_import_wp_custom_events.php:309
-#: includes/fb-api-importer/class_import_wp_custom_post.php:161
-#: includes/fb-api-importer/class_import_wp_custom_post.php:259
-#: includes/fb-api-importer/class_import_wp_custom_post.php:294
-#: includes/fb-api-importer/class_import_wp_custom_post.php:303
+#: includes/fb-api-importer/class_import_wp_custom_events.php:231
+#: includes/fb-api-importer/class_import_wp_custom_events.php:267
+#: includes/fb-api-importer/class_import_wp_custom_events.php:276
+#: includes/fb-api-importer/class_import_wp_custom_events.php:317
+#: includes/fb-api-importer/class_import_wp_custom_post.php:162
+#: includes/fb-api-importer/class_import_wp_custom_post.php:262
+#: includes/fb-api-importer/class_import_wp_custom_post.php:297
+#: includes/fb-api-importer/class_import_wp_custom_post.php:306
 msgid "Error"
 msgstr "Fehler"
 
@@ -53,9 +53,9 @@ msgstr "Fehler"
 #: admin/ajax/class_wp_facebook_importer_ajax.php:245
 #: admin/ajax/class_wp_facebook_importer_ajax.php:269
 #: admin/ajax/class_wp_facebook_importer_ajax.php:276
-#: admin/ajax/class_wp_facebook_importer_ajax.php:545
-#: admin/ajax/class_wp_facebook_importer_ajax.php:589
-#: admin/ajax/class_wp_facebook_importer_ajax.php:613
+#: admin/ajax/class_wp_facebook_importer_ajax.php:549
+#: admin/ajax/class_wp_facebook_importer_ajax.php:597
+#: admin/ajax/class_wp_facebook_importer_ajax.php:622
 msgid "Ajax transmission error"
 msgstr "Ajax-Übermittlungsfehler"
 
@@ -72,8 +72,9 @@ msgstr "Name oder Ort \"%s\" existiert bereits!"
 #: admin/ajax/class_wp_facebook_importer_ajax.php:193
 #: admin/ajax/class_wp_facebook_importer_ajax.php:227
 #: admin/ajax/class_wp_facebook_importer_ajax.php:262
-#: admin/ajax/class_wp_facebook_importer_ajax.php:414
-#: includes/trait_wp_facebook_importer_defaults.php:156
+#: admin/ajax/class_wp_facebook_importer_ajax.php:418
+#: admin/ajax/class_wp_facebook_importer_ajax.php:678
+#: includes/trait_wp_facebook_importer_defaults.php:157
 msgid "saved"
 msgstr "gespeichert"
 
@@ -83,94 +84,99 @@ msgstr "Fehler beim Speichern."
 
 #: admin/ajax/class_wp_facebook_importer_ajax.php:226
 #: admin/ajax/class_wp_facebook_importer_ajax.php:261
-#: admin/ajax/class_wp_facebook_importer_ajax.php:413
+#: admin/ajax/class_wp_facebook_importer_ajax.php:417
+#: admin/ajax/class_wp_facebook_importer_ajax.php:677
 msgid "Changes saved successfully."
 msgstr "Änderungen erfolgreich gespeichert."
 
-#: admin/ajax/class_wp_facebook_importer_ajax.php:369
+#: admin/ajax/class_wp_facebook_importer_ajax.php:373
 msgid "Category name is a required field!"
 msgstr "Kategorie Name ist ein Pflichtfeld!"
 
-#: admin/ajax/class_wp_facebook_importer_ajax.php:374
+#: admin/ajax/class_wp_facebook_importer_ajax.php:378
 msgid "The title form is required!"
 msgstr "Die Titelform ist Pflichtfeld!"
 
-#: admin/ajax/class_wp_facebook_importer_ajax.php:381
+#: admin/ajax/class_wp_facebook_importer_ajax.php:385
 msgid "Title form must have at least 5 characters!"
 msgstr "Titelform muss min. 5 Zeichen haben!"
 
-#: admin/ajax/class_wp_facebook_importer_ajax.php:387
+#: admin/ajax/class_wp_facebook_importer_ajax.php:391
 msgid "Title form wrong format! Only letters, numbers, hyphens or underscores."
 msgstr ""
 "Titelform falsches Format! Nur Buchstaben, Zahlen, Bindestriche oder "
 "Unterstriche."
 
-#: admin/ajax/class_wp_facebook_importer_ajax.php:395
+#: admin/ajax/class_wp_facebook_importer_ajax.php:399
 msgid "Name or title form already exists!"
 msgstr "Name oder Titelform schon vorhanden!"
 
-#: admin/ajax/class_wp_facebook_importer_ajax.php:412
-#: includes/trait_wp_facebook_importer_defaults.php:137
+#: admin/ajax/class_wp_facebook_importer_ajax.php:416
+#: includes/trait_wp_facebook_importer_defaults.php:138
 msgid "select"
 msgstr "auswählen"
 
-#: admin/ajax/class_wp_facebook_importer_ajax.php:555
+#: admin/ajax/class_wp_facebook_importer_ajax.php:559
 msgid "Import deleted"
 msgstr "Import gelöscht"
 
-#: admin/ajax/class_wp_facebook_importer_ajax.php:556
+#: admin/ajax/class_wp_facebook_importer_ajax.php:560
 msgid "Import, posts and events deleted!"
 msgstr "Import, Beiträge und Veranstaltungen gelöscht!"
 
-#: admin/ajax/class_wp_facebook_importer_ajax.php:564
+#: admin/ajax/class_wp_facebook_importer_ajax.php:568
 msgid "Posts deleted"
 msgstr "Beiträge gelöscht"
 
-#: admin/ajax/class_wp_facebook_importer_ajax.php:565
-#: admin/ajax/class_wp_facebook_importer_ajax.php:574
+#: admin/ajax/class_wp_facebook_importer_ajax.php:569
+#: admin/ajax/class_wp_facebook_importer_ajax.php:578
 msgid "All posts and events deleted!"
 msgstr "Alle Beiträge und Veranstaltungen gelöscht!"
 
-#: admin/ajax/class_wp_facebook_importer_ajax.php:573
+#: admin/ajax/class_wp_facebook_importer_ajax.php:577
 msgid "Events deleted"
 msgstr "Veranstaltungen gelöscht"
 
-#: admin/ajax/class_wp_facebook_importer_ajax.php:579
+#: admin/ajax/class_wp_facebook_importer_ajax.php:587
 msgid "Reset successful"
 msgstr "Reset erfolgreich"
 
-#: admin/ajax/class_wp_facebook_importer_ajax.php:580
+#: admin/ajax/class_wp_facebook_importer_ajax.php:588
 msgid "All posts and events reset."
 msgstr "Alle Beiträge und Veranstaltungen zurück gesetzt."
 
-#: admin/ajax/class_wp_facebook_importer_ajax.php:597
-#: admin/ajax/class_wp_facebook_importer_ajax.php:621
+#: admin/ajax/class_wp_facebook_importer_ajax.php:606
+#: admin/ajax/class_wp_facebook_importer_ajax.php:631
 msgid "Successfully Synchronized!"
 msgstr "Erfolgreich Synchronisiert!"
 
-#: admin/ajax/class_wp_facebook_importer_ajax.php:598
+#: admin/ajax/class_wp_facebook_importer_ajax.php:607
 #: includes/fb-api-importer/class_wp_importer_open_socket.php:84
 #: includes/fb-api-importer/class_wp_importer_open_socket.php:93
 msgid "Posts successfully updated."
 msgstr "Beiträge erfolgreich aktualisiert."
 
-#: admin/ajax/class_wp_facebook_importer_ajax.php:622
+#: admin/ajax/class_wp_facebook_importer_ajax.php:632
 msgid "Events successfully updated."
 msgstr "Veranstaltungen erfolgreich aktualisiert."
 
-#: admin/ajax/class_wp_facebook_importer_ajax.php:637
-#: includes/fb-api-importer/class_import_wp_custom_events.php:181
+#: admin/ajax/class_wp_facebook_importer_ajax.php:647
+#: includes/fb-api-importer/class_import_wp_custom_events.php:189
 msgid "Info"
 msgstr "Info"
 
-#: admin/ajax/class_wp_facebook_importer_ajax.php:687
+#: admin/ajax/class_wp_facebook_importer_ajax.php:745
 msgid "No limit"
 msgstr "keine Begrenzung"
 
-#: admin/ajax/class_wp_facebook_importer_ajax.php:706
-#: includes/trait_wp_facebook_importer_defaults.php:233
+#: admin/ajax/class_wp_facebook_importer_ajax.php:764
+#: includes/trait_wp_facebook_importer_defaults.php:242
 msgid "Edit"
 msgstr "Bearbeiten"
+
+#: admin/ajax/class_wp_facebook_importer_ajax.php:834
+msgid "Delete"
+msgstr "Löschen"
 
 #: admin/class-wp-facebook-importer-admin.php:86
 #: admin/class-wp-facebook-importer-admin.php:87
@@ -182,7 +188,7 @@ msgstr "FB-Importer"
 #: admin/class-wp-facebook-importer-admin.php:97
 #: admin/class-wp-facebook-importer-admin.php:98
 #: admin/class-wp-facebook-importer-admin.php:149
-#: includes/trait_wp_facebook_importer_defaults.php:171
+#: includes/trait_wp_facebook_importer_defaults.php:172
 msgid "Settings"
 msgstr "Einstellungen"
 
@@ -190,6 +196,11 @@ msgstr "Einstellungen"
 #: admin/class-wp-facebook-importer-admin.php:108
 msgid "FB pages"
 msgstr "FB Seiten"
+
+#: admin/srv-api/class_srv_api_endpoint.php:179
+#: includes/endpoint/wp_facebook_importer_rest_endpoint.php:245
+msgid "Method not found."
+msgstr ""
 
 #: includes/class-wp-facebook-importer-activator.php:58
 msgid "Facebook Post"
@@ -264,7 +275,7 @@ msgstr "Standard Kategorie für Posts"
 msgid "Standard category for events"
 msgstr "Standard Kategorie für Veranstaltungen"
 
-#: includes/class-wp-facebook-importer.php:404
+#: includes/class-wp-facebook-importer.php:484
 #, php-format
 msgid ""
 "This plugin has been disabled because it requires a PHP version greater than "
@@ -276,27 +287,27 @@ msgstr ""
 "Ihrem Hosting-Anbieter aktualisiert werden."
 
 #: includes/class_wp_facebook_importer_helper.php:125
-#: includes/trait_wp_facebook_importer_defaults.php:103
+#: includes/trait_wp_facebook_importer_defaults.php:104
 msgid "Subscriber"
 msgstr "Abonnent"
 
 #: includes/class_wp_facebook_importer_helper.php:126
-#: includes/trait_wp_facebook_importer_defaults.php:107
+#: includes/trait_wp_facebook_importer_defaults.php:108
 msgid "Contributor"
 msgstr "Mitarbeiter"
 
 #: includes/class_wp_facebook_importer_helper.php:127
-#: includes/trait_wp_facebook_importer_defaults.php:111
+#: includes/trait_wp_facebook_importer_defaults.php:112
 msgid "Author"
 msgstr "Autor"
 
 #: includes/class_wp_facebook_importer_helper.php:128
-#: includes/trait_wp_facebook_importer_defaults.php:115
+#: includes/trait_wp_facebook_importer_defaults.php:116
 msgid "Editor"
 msgstr "Redakteur"
 
 #: includes/class_wp_facebook_importer_helper.php:129
-#: includes/trait_wp_facebook_importer_defaults.php:119
+#: includes/trait_wp_facebook_importer_defaults.php:120
 msgid "Administrator"
 msgstr "Administrator"
 
@@ -309,11 +320,6 @@ msgstr "Neuer Import \"%s\" mit der ID: %d erstellt!"
 #, php-format
 msgid "\"%s\" could not be saved!"
 msgstr "\"%s\" konnte nicht gespeichert werden!"
-
-#: includes/fb-api-importer/api-cronjob-exec.php:25
-#: includes/fb-api-importer/class_import_curl_cronjob_exec.php:104
-msgid "Synchronisation successful"
-msgstr "Synchronisierung erfolgreich"
 
 #: includes/fb-api-importer/class_facebook_import_api.php:118
 #: includes/fb-api-importer/class_facebook_import_api.php:165
@@ -335,16 +341,16 @@ msgid "Facebook SDK error: "
 msgstr "Facebook SDK-Fehler: "
 
 #: includes/fb-api-importer/class_facebook_import_api.php:139
-#: includes/fb-api-importer/class_import_wp_custom_events.php:107
-#: includes/fb-api-importer/class_import_wp_custom_post.php:140
-#: includes/fb-api-importer/class_import_wp_custom_post.php:214
+#: includes/fb-api-importer/class_import_wp_custom_events.php:109
+#: includes/fb-api-importer/class_import_wp_custom_post.php:141
+#: includes/fb-api-importer/class_import_wp_custom_post.php:217
 msgid "NO Data: "
 msgstr "KEINE Daten: "
 
 #: includes/fb-api-importer/class_facebook_import_api.php:140
-#: includes/fb-api-importer/class_import_wp_custom_events.php:108
-#: includes/fb-api-importer/class_import_wp_custom_post.php:141
-#: includes/fb-api-importer/class_import_wp_custom_post.php:215
+#: includes/fb-api-importer/class_import_wp_custom_events.php:110
+#: includes/fb-api-importer/class_import_wp_custom_post.php:142
+#: includes/fb-api-importer/class_import_wp_custom_post.php:218
 msgid "no new data found!"
 msgstr "keine neuen Daten gefunden!"
 
@@ -356,23 +362,23 @@ msgstr "keine Daten gefunden!"
 msgid "Logged in as "
 msgstr "Angemeldet als "
 
-#: includes/fb-api-importer/class_import_wp_custom_events.php:182
+#: includes/fb-api-importer/class_import_wp_custom_events.php:190
 msgid "Event has expired!"
 msgstr "Veranstaltung ist abgelaufen!"
 
-#: includes/fb-api-importer/class_import_wp_custom_events.php:216
+#: includes/fb-api-importer/class_import_wp_custom_events.php:224
 msgid "Event already available!"
 msgstr "Veranstaltung schon vorhanden!"
 
-#: includes/fb-api-importer/class_import_wp_custom_events.php:324
+#: includes/fb-api-importer/class_import_wp_custom_events.php:332
 msgid "Event"
 msgstr "Veranstaltung"
 
-#: includes/fb-api-importer/class_import_wp_custom_post.php:247
+#: includes/fb-api-importer/class_import_wp_custom_post.php:250
 msgid "no content"
 msgstr "kein Inhalt"
 
-#: includes/fb-api-importer/class_import_wp_custom_post.php:252
+#: includes/fb-api-importer/class_import_wp_custom_post.php:255
 msgid "NO Data:"
 msgstr "KEINE Daten:"
 
@@ -384,78 +390,78 @@ msgstr "KEINE Daten:"
 msgid "Synchronisation error"
 msgstr "Synchronisierungsintervall"
 
-#: includes/trait_wp_facebook_importer_defaults.php:84
+#: includes/trait_wp_facebook_importer_defaults.php:85
 msgid "hourly"
 msgstr "Stündlich"
 
-#: includes/trait_wp_facebook_importer_defaults.php:88
+#: includes/trait_wp_facebook_importer_defaults.php:89
 msgid "Twice a day"
 msgstr "Zweimal Täglich"
 
-#: includes/trait_wp_facebook_importer_defaults.php:92
+#: includes/trait_wp_facebook_importer_defaults.php:93
 msgid "Once a day"
 msgstr "Einmal täglich"
 
-#: includes/trait_wp_facebook_importer_defaults.php:96
+#: includes/trait_wp_facebook_importer_defaults.php:97
 msgid "Once a week"
 msgstr "Einmal wöchentlich"
 
-#: includes/trait_wp_facebook_importer_defaults.php:124
+#: includes/trait_wp_facebook_importer_defaults.php:125
 msgid "Name or location for this import:"
 msgstr "Name oder Location für diesen Import:"
 
-#: includes/trait_wp_facebook_importer_defaults.php:125
+#: includes/trait_wp_facebook_importer_defaults.php:126
 msgid "This name is displayed on the website.."
 msgstr "Dieser Name wird auf der Website angezeigt."
 
-#: includes/trait_wp_facebook_importer_defaults.php:126
+#: includes/trait_wp_facebook_importer_defaults.php:127
 msgid "Description for this import:"
 msgstr "Beschreibung für diesen Import:"
 
-#: includes/trait_wp_facebook_importer_defaults.php:127
+#: includes/trait_wp_facebook_importer_defaults.php:128
 msgid "The description is optional."
 msgstr "Die Beschreibung ist optional."
 
-#: includes/trait_wp_facebook_importer_defaults.php:128
+#: includes/trait_wp_facebook_importer_defaults.php:129
 msgid "Max. Number of posts and events Import:"
 msgstr "Max. Anzahl von Posts und Veranstaltungen importieren:"
 
-#: includes/trait_wp_facebook_importer_defaults.php:129
+#: includes/trait_wp_facebook_importer_defaults.php:130
 msgid "The standard value is 100."
 msgstr "Der Standardwert ist 100."
 
-#: includes/trait_wp_facebook_importer_defaults.php:130
+#: includes/trait_wp_facebook_importer_defaults.php:131
 msgid "Facebook Api and WordPress Options:"
 msgstr "Facebook-API und WordPress Optionen:"
 
-#: includes/trait_wp_facebook_importer_defaults.php:131
-#: includes/trait_wp_facebook_importer_defaults.php:186
+#: includes/trait_wp_facebook_importer_defaults.php:132
+#: includes/trait_wp_facebook_importer_defaults.php:187
 msgid ""
 "If you do not enter a Page ID or User ID, your Facebook User ID will be used."
 msgstr ""
 "Geben Sie keine Page-ID oder User-ID ein, wird Ihre Facebook User-ID "
 "verwendet."
 
-#: includes/trait_wp_facebook_importer_defaults.php:132
+#: includes/trait_wp_facebook_importer_defaults.php:133
 msgid "Facebook User-ID:"
 msgstr "Facebook User-ID:"
 
-#: includes/trait_wp_facebook_importer_defaults.php:133
-#: includes/trait_wp_facebook_importer_defaults.php:189
+#: includes/trait_wp_facebook_importer_defaults.php:134
+#: includes/trait_wp_facebook_importer_defaults.php:190
 msgid "Only posts and events of the user are imported."
 msgstr "Nur Posts und Veranstaltungen des User werden importiert."
 
-#: includes/trait_wp_facebook_importer_defaults.php:134
-#: includes/trait_wp_facebook_importer_defaults.php:190
+#: includes/trait_wp_facebook_importer_defaults.php:135
+#: includes/trait_wp_facebook_importer_defaults.php:191
 msgid "User ID active"
 msgstr "User-ID aktiv"
 
-#: includes/trait_wp_facebook_importer_defaults.php:135
+#: includes/trait_wp_facebook_importer_defaults.php:136
 msgid "Select category for Facebook posts and events:"
 msgstr "Kategorie für Facebook Posts und Veranstaltungen auswählen:"
 
-#: includes/trait_wp_facebook_importer_defaults.php:136
-#: includes/trait_wp_facebook_importer_defaults.php:192
+#: includes/trait_wp_facebook_importer_defaults.php:137
+#: includes/trait_wp_facebook_importer_defaults.php:193
 msgid ""
 "If you do not select a category, the default categories for posts or events "
 "will be used."
@@ -463,346 +469,382 @@ msgstr ""
 "Wählen Sie keine Kategorie aus, werden die Standard-Kategorien für Posts "
 "bzw. Veranstaltungen verwendet."
 
-#: includes/trait_wp_facebook_importer_defaults.php:138
+#: includes/trait_wp_facebook_importer_defaults.php:139
 msgid "Category for posts:"
 msgstr "Kategorie für Posts:"
 
-#: includes/trait_wp_facebook_importer_defaults.php:139
+#: includes/trait_wp_facebook_importer_defaults.php:140
 msgid "Category for events:"
 msgstr "Kategorie für Veranstaltungen:"
 
-#: includes/trait_wp_facebook_importer_defaults.php:140
+#: includes/trait_wp_facebook_importer_defaults.php:141
 msgid "Create a new category for Facebook posts or events:"
 msgstr "Neue Kategorie für Facebook Posts oder Veranstaltungen erstellen:"
 
-#: includes/trait_wp_facebook_importer_defaults.php:141
-#: includes/trait_wp_facebook_importer_defaults.php:197
+#: includes/trait_wp_facebook_importer_defaults.php:142
+#: includes/trait_wp_facebook_importer_defaults.php:198
 msgid "Create new category"
 msgstr "Neue Kategorie erstellen"
 
-#: includes/trait_wp_facebook_importer_defaults.php:142
-#: includes/trait_wp_facebook_importer_defaults.php:198
+#: includes/trait_wp_facebook_importer_defaults.php:143
+#: includes/trait_wp_facebook_importer_defaults.php:199
 msgid "Create a new Facebook import"
 msgstr "Neuen Facebook Import erstellen"
 
-#: includes/trait_wp_facebook_importer_defaults.php:143
+#: includes/trait_wp_facebook_importer_defaults.php:144
 msgid "Save changes"
 msgstr "Änderungen speichern"
 
-#: includes/trait_wp_facebook_importer_defaults.php:144
+#: includes/trait_wp_facebook_importer_defaults.php:145
 msgid "back to the overview"
 msgstr "zurück zur Übersicht"
 
-#: includes/trait_wp_facebook_importer_defaults.php:145
+#: includes/trait_wp_facebook_importer_defaults.php:146
 msgid "Synchronise now"
 msgstr "Jetzt Synchronisieren"
 
-#: includes/trait_wp_facebook_importer_defaults.php:146
+#: includes/trait_wp_facebook_importer_defaults.php:147
 msgid "Synchronize posts"
 msgstr "Beiträge Synchronisieren"
 
-#: includes/trait_wp_facebook_importer_defaults.php:147
+#: includes/trait_wp_facebook_importer_defaults.php:148
 msgid "Synchronize events"
 msgstr "Veranstaltungen Synchronisieren"
 
-#: includes/trait_wp_facebook_importer_defaults.php:149
-#: includes/trait_wp_facebook_importer_defaults.php:248
+#: includes/trait_wp_facebook_importer_defaults.php:150
+#: includes/trait_wp_facebook_importer_defaults.php:257
 msgid "Delete import"
 msgstr "Import löschen"
 
-#: includes/trait_wp_facebook_importer_defaults.php:150
+#: includes/trait_wp_facebook_importer_defaults.php:151
 msgid "Reset Import"
 msgstr "Reset Import"
 
-#: includes/trait_wp_facebook_importer_defaults.php:151
+#: includes/trait_wp_facebook_importer_defaults.php:152
 msgid "Delete all posts"
 msgstr "Alle Posts löschen"
 
-#: includes/trait_wp_facebook_importer_defaults.php:152
+#: includes/trait_wp_facebook_importer_defaults.php:153
 msgid "FB API credentials"
 msgstr "FB API-Zugangsdaten"
 
-#: includes/trait_wp_facebook_importer_defaults.php:153
+#: includes/trait_wp_facebook_importer_defaults.php:154
 msgid "App ID"
 msgstr "App ID"
 
-#: includes/trait_wp_facebook_importer_defaults.php:154
+#: includes/trait_wp_facebook_importer_defaults.php:155
 msgid "APP Secret"
 msgstr "APP Secret"
 
-#: includes/trait_wp_facebook_importer_defaults.php:155
+#: includes/trait_wp_facebook_importer_defaults.php:156
 msgid "Access-Token"
 msgstr "Access-Token"
 
-#: includes/trait_wp_facebook_importer_defaults.php:157
+#: includes/trait_wp_facebook_importer_defaults.php:158
 msgid "Show tokens"
 msgstr "Token anzeigen"
 
-#: includes/trait_wp_facebook_importer_defaults.php:158
+#: includes/trait_wp_facebook_importer_defaults.php:159
 msgid "Hide token"
 msgstr "Token ausblenden"
 
-#: includes/trait_wp_facebook_importer_defaults.php:159
+#: includes/trait_wp_facebook_importer_defaults.php:160
 msgid "Check Access Token"
 msgstr "Check Access Token"
 
-#: includes/trait_wp_facebook_importer_defaults.php:160
+#: includes/trait_wp_facebook_importer_defaults.php:161
 msgid "Synchronization settings"
 msgstr "Synchronisation-Einstellungen"
 
-#: includes/trait_wp_facebook_importer_defaults.php:161
+#: includes/trait_wp_facebook_importer_defaults.php:162
 msgid "Cronjob active"
 msgstr "Cronjob aktiv"
 
-#: includes/trait_wp_facebook_importer_defaults.php:162
+#: includes/trait_wp_facebook_importer_defaults.php:163
 msgid "Synchronization interval"
 msgstr "Synchronisierungsintervall"
 
-#: includes/trait_wp_facebook_importer_defaults.php:163
+#: includes/trait_wp_facebook_importer_defaults.php:164
 msgid "Update interval for synchronisation"
 msgstr "Update-Intervall für die Synchronisierung"
 
-#: includes/trait_wp_facebook_importer_defaults.php:164
+#: includes/trait_wp_facebook_importer_defaults.php:165
 msgid "Import posts per update"
 msgstr "Beiträge pro Update Importieren"
 
-#: includes/trait_wp_facebook_importer_defaults.php:165
+#: includes/trait_wp_facebook_importer_defaults.php:166
 msgid "URL for external cronjob"
 msgstr "URL für externen Cronjob"
 
-#: includes/trait_wp_facebook_importer_defaults.php:166
+#: includes/trait_wp_facebook_importer_defaults.php:167
 msgid "Close"
 msgstr "Schließen"
 
-#: includes/trait_wp_facebook_importer_defaults.php:167
+#: includes/trait_wp_facebook_importer_defaults.php:168
 msgid "Response"
 msgstr "Response"
 
-#: includes/trait_wp_facebook_importer_defaults.php:168
+#: includes/trait_wp_facebook_importer_defaults.php:169
 msgid "Facebook Import Posts"
 msgstr "Facebook Beiträge Importieren"
 
-#: includes/trait_wp_facebook_importer_defaults.php:169
+#: includes/trait_wp_facebook_importer_defaults.php:170
 msgid "FB API access data"
 msgstr "FB API-Zugangsdaten"
 
-#: includes/trait_wp_facebook_importer_defaults.php:170
+#: includes/trait_wp_facebook_importer_defaults.php:171
 msgid "Facebook Importer and WordPress Options"
 msgstr "Facebook-API und WordPress Optionen"
 
-#: includes/trait_wp_facebook_importer_defaults.php:172
+#: includes/trait_wp_facebook_importer_defaults.php:173
 msgid "Minimum requirement for using this function"
 msgstr "Mindestvoraussetzung für die Verwendung dieses Plugins"
 
-#: includes/trait_wp_facebook_importer_defaults.php:173
+#: includes/trait_wp_facebook_importer_defaults.php:174
 msgid "User role"
 msgstr "Benutzer Rolle"
 
-#: includes/trait_wp_facebook_importer_defaults.php:175
+#: includes/trait_wp_facebook_importer_defaults.php:176
 msgid "Import and manage Facebook content"
 msgstr "Facebook Inhalte importieren und verwalten"
 
-#: includes/trait_wp_facebook_importer_defaults.php:176
+#: includes/trait_wp_facebook_importer_defaults.php:177
 msgid "Facebook content and events"
 msgstr "Facebook Inhalte und Veranstaltungen"
 
-#: includes/trait_wp_facebook_importer_defaults.php:177
+#: includes/trait_wp_facebook_importer_defaults.php:178
 msgid "all imported content"
 msgstr "alle importierten Inhalte"
 
-#: includes/trait_wp_facebook_importer_defaults.php:178
+#: includes/trait_wp_facebook_importer_defaults.php:179
 msgid "Import new content"
 msgstr "Neue Inhalte importieren"
 
-#: includes/trait_wp_facebook_importer_defaults.php:179
+#: includes/trait_wp_facebook_importer_defaults.php:180
 msgid "Name or location for this import"
 msgstr "Name oder Location für diesen Import"
 
-#: includes/trait_wp_facebook_importer_defaults.php:180
+#: includes/trait_wp_facebook_importer_defaults.php:181
 msgid "This name is displayed on the website"
 msgstr "Dieser Name wird auf der Website angezeigt"
 
-#: includes/trait_wp_facebook_importer_defaults.php:181
+#: includes/trait_wp_facebook_importer_defaults.php:182
 msgid "Description for this import"
 msgstr "Beschreibung für diesen Import"
 
-#: includes/trait_wp_facebook_importer_defaults.php:182
+#: includes/trait_wp_facebook_importer_defaults.php:183
 msgid "The description is optional"
 msgstr "Die Beschreibung ist optional"
 
-#: includes/trait_wp_facebook_importer_defaults.php:183
+#: includes/trait_wp_facebook_importer_defaults.php:184
 msgid "Max. Number of posts and events Import"
 msgstr "Max. Anzahl von Posts und Veranstaltungen importieren"
 
-#: includes/trait_wp_facebook_importer_defaults.php:184
+#: includes/trait_wp_facebook_importer_defaults.php:185
 msgid "The standard value is"
 msgstr "Der Standardwert ist"
 
-#: includes/trait_wp_facebook_importer_defaults.php:185
+#: includes/trait_wp_facebook_importer_defaults.php:186
 msgid "Facebook Api and WordPress Options"
 msgstr "Facebook-API und WordPress Optionen"
 
-#: includes/trait_wp_facebook_importer_defaults.php:187
+#: includes/trait_wp_facebook_importer_defaults.php:188
 msgid "Facebook Page ID"
 msgstr "Facebook Seiten-ID"
 
-#: includes/trait_wp_facebook_importer_defaults.php:188
+#: includes/trait_wp_facebook_importer_defaults.php:189
 msgid "Facebook User-ID"
 msgstr "Facebook User-ID"
 
-#: includes/trait_wp_facebook_importer_defaults.php:191
+#: includes/trait_wp_facebook_importer_defaults.php:192
 msgid "Select category for Facebook posts and events"
 msgstr "Kategorie für Facebook Posts und Veranstaltungen auswählen"
 
-#: includes/trait_wp_facebook_importer_defaults.php:193
+#: includes/trait_wp_facebook_importer_defaults.php:194
 msgid "Category for posts"
 msgstr "Kategorie für Posts"
 
-#: includes/trait_wp_facebook_importer_defaults.php:194
+#: includes/trait_wp_facebook_importer_defaults.php:195
 msgid "Category for events"
 msgstr "Kategorie für Veranstaltungen"
 
-#: includes/trait_wp_facebook_importer_defaults.php:196
+#: includes/trait_wp_facebook_importer_defaults.php:197
 msgid "Create a new category for Facebook posts or events"
 msgstr "Neue Kategorie für Facebook Posts oder Veranstaltungen erstellen"
 
-#: includes/trait_wp_facebook_importer_defaults.php:199
+#: includes/trait_wp_facebook_importer_defaults.php:200
 msgid "active"
 msgstr "aktiv"
 
-#: includes/trait_wp_facebook_importer_defaults.php:200
+#: includes/trait_wp_facebook_importer_defaults.php:201
 msgid "next synchronization on"
 msgstr "nächste Synchronisierung am"
 
-#: includes/trait_wp_facebook_importer_defaults.php:201
+#: includes/trait_wp_facebook_importer_defaults.php:202
 msgid "on"
 msgstr "am"
 
-#: includes/trait_wp_facebook_importer_defaults.php:202
+#: includes/trait_wp_facebook_importer_defaults.php:203
 msgid "at"
 msgstr "um"
 
-#: includes/trait_wp_facebook_importer_defaults.php:203
+#: includes/trait_wp_facebook_importer_defaults.php:204
 msgid "clock"
 msgstr "Uhr"
 
-#: includes/trait_wp_facebook_importer_defaults.php:204
+#: includes/trait_wp_facebook_importer_defaults.php:205
 msgid "from"
 msgstr "vom"
 
-#: includes/trait_wp_facebook_importer_defaults.php:205
+#: includes/trait_wp_facebook_importer_defaults.php:206
 msgid "unknown"
 msgstr "unbekannt"
 
-#: includes/trait_wp_facebook_importer_defaults.php:206
+#: includes/trait_wp_facebook_importer_defaults.php:207
 msgid "Facebook API Status"
 msgstr "Facebook-API-Status"
 
-#: includes/trait_wp_facebook_importer_defaults.php:207
+#: includes/trait_wp_facebook_importer_defaults.php:208
 msgid "If the entry remains empty, the number is unlimited."
 msgstr "Bleibt der Eintrag leer, ist die Anzahl unbegrenzt."
 
-#: includes/trait_wp_facebook_importer_defaults.php:208
+#: includes/trait_wp_facebook_importer_defaults.php:209
 msgid "Start synchronization"
 msgstr "Beginn der Synchronisierung"
 
-#: includes/trait_wp_facebook_importer_defaults.php:209
+#: includes/trait_wp_facebook_importer_defaults.php:210
 msgid "last post"
 msgstr "letzter Beitrag"
 
-#: includes/trait_wp_facebook_importer_defaults.php:210
+#: includes/trait_wp_facebook_importer_defaults.php:211
 msgid "last update"
 msgstr "letzte Aktualisierung"
 
-#: includes/trait_wp_facebook_importer_defaults.php:211
+#: includes/trait_wp_facebook_importer_defaults.php:212
 msgid "Ignore posts without picture"
 msgstr "Beiträge ohne Bild ignorieren"
 
-#: includes/trait_wp_facebook_importer_defaults.php:212
+#: includes/trait_wp_facebook_importer_defaults.php:213
 msgid "Posts and events"
 msgstr "Beiträge und Veranstaltungen"
 
-#: includes/trait_wp_facebook_importer_defaults.php:213
+#: includes/trait_wp_facebook_importer_defaults.php:214
 msgid "are synchronized"
 msgstr "werden synchronisiert"
 
-#: includes/trait_wp_facebook_importer_defaults.php:214
+#: includes/trait_wp_facebook_importer_defaults.php:215
 msgid "Posts"
 msgstr "Beiträge"
 
-#: includes/trait_wp_facebook_importer_defaults.php:215
+#: includes/trait_wp_facebook_importer_defaults.php:216
 msgid "Events"
 msgstr "Veranstaltungen"
 
-#: includes/trait_wp_facebook_importer_defaults.php:216
+#: includes/trait_wp_facebook_importer_defaults.php:217
 msgid "Imported"
 msgstr "Importierte"
 
-#: includes/trait_wp_facebook_importer_defaults.php:217
+#: includes/trait_wp_facebook_importer_defaults.php:218
 msgid "Settings for import"
 msgstr "Einstellungen für den Import"
 
-#: includes/trait_wp_facebook_importer_defaults.php:218
+#: includes/trait_wp_facebook_importer_defaults.php:219
 msgid "Create new import"
 msgstr "Neuen Import erstellen"
 
-#: includes/trait_wp_facebook_importer_defaults.php:221
+#: includes/trait_wp_facebook_importer_defaults.php:220
+msgid "Display cronjob log"
+msgstr "CronJob Log anzeigen"
+
+#: includes/trait_wp_facebook_importer_defaults.php:222
 msgid "The date of the last synchronization is reset."
 msgstr "Das Datum der letzten Synchronisation wird zurückgesetzt."
 
-#: includes/trait_wp_facebook_importer_defaults.php:225
+#: includes/trait_wp_facebook_importer_defaults.php:226
 msgid "Designation"
 msgstr "Bezeichnung"
 
-#: includes/trait_wp_facebook_importer_defaults.php:227
+#: includes/trait_wp_facebook_importer_defaults.php:228
 msgid "Max. Import"
 msgstr "Max. Import"
 
-#: includes/trait_wp_facebook_importer_defaults.php:228
+#: includes/trait_wp_facebook_importer_defaults.php:229
+msgid "Import"
+msgstr "Import"
+
+#: includes/trait_wp_facebook_importer_defaults.php:230
 msgid "User ID"
 msgstr "User-ID"
 
-#: includes/trait_wp_facebook_importer_defaults.php:229
+#: includes/trait_wp_facebook_importer_defaults.php:231
 msgid "Page ID"
 msgstr "Seiten-ID"
 
-#: includes/trait_wp_facebook_importer_defaults.php:230
+#: includes/trait_wp_facebook_importer_defaults.php:232
 msgid "User active"
 msgstr "User aktiv"
 
-#: includes/trait_wp_facebook_importer_defaults.php:231
+#: includes/trait_wp_facebook_importer_defaults.php:233
 msgid "Post Category"
 msgstr "Post Kategorie"
 
-#: includes/trait_wp_facebook_importer_defaults.php:232
+#: includes/trait_wp_facebook_importer_defaults.php:234
 msgid "Event Category"
 msgstr "Event Kategorie"
 
+#: includes/trait_wp_facebook_importer_defaults.php:235
+msgid "Start post"
+msgstr "Start Post"
+
+#: includes/trait_wp_facebook_importer_defaults.php:236
+msgid "End post"
+msgstr "Ende Post"
+
 #: includes/trait_wp_facebook_importer_defaults.php:237
+msgid "Start event"
+msgstr "Start Event"
+
+#: includes/trait_wp_facebook_importer_defaults.php:238
+msgid "End event"
+msgstr "Ende Event"
+
+#: includes/trait_wp_facebook_importer_defaults.php:239
+msgid "Event status"
+msgstr "Event Status"
+
+#: includes/trait_wp_facebook_importer_defaults.php:240
+msgid "Post status"
+msgstr "Post Status"
+
+#: includes/trait_wp_facebook_importer_defaults.php:241
+msgid "delete"
+msgstr "löschen"
+
+#: includes/trait_wp_facebook_importer_defaults.php:246
 msgid "Create a new category"
 msgstr "Neue Kategorie erstellen"
 
-#: includes/trait_wp_facebook_importer_defaults.php:238
+#: includes/trait_wp_facebook_importer_defaults.php:247
 msgid "Name"
 msgstr "Name"
 
-#: includes/trait_wp_facebook_importer_defaults.php:239
+#: includes/trait_wp_facebook_importer_defaults.php:248
 msgid "This name is then displayed on the website"
 msgstr "Dieser Name wird auf der Website angezeigt"
 
-#: includes/trait_wp_facebook_importer_defaults.php:240
+#: includes/trait_wp_facebook_importer_defaults.php:249
 msgid "Title form"
 msgstr "Titelform"
 
-#: includes/trait_wp_facebook_importer_defaults.php:241
+#: includes/trait_wp_facebook_importer_defaults.php:250
 msgid "create"
 msgstr "Erstellen"
 
-#: includes/trait_wp_facebook_importer_defaults.php:242
+#: includes/trait_wp_facebook_importer_defaults.php:251
 msgid "cancel"
 msgstr "Abbrechen"
 
-#: includes/trait_wp_facebook_importer_defaults.php:243
+#: includes/trait_wp_facebook_importer_defaults.php:252
 msgid ""
 "The \"title form\" is the readable URL variant of the name. It usually "
 "consists only of lower case letters, numbers and hyphens."
@@ -810,33 +852,33 @@ msgstr ""
 "Die „Titelform“ ist die lesbare URL-Variante des Namens. Sie besteht "
 "normalerweise nur aus Kleinbuchstaben, Zahlen und Bindestrichen."
 
-#: includes/trait_wp_facebook_importer_defaults.php:244
+#: includes/trait_wp_facebook_importer_defaults.php:253
 msgid "Description"
 msgstr "Beschreibung"
 
-#: includes/trait_wp_facebook_importer_defaults.php:245
+#: includes/trait_wp_facebook_importer_defaults.php:254
 msgid ""
 "The description is not always displayed. In some themes it may be displayed."
 msgstr "Die Beschreibung wird nicht immer angezeigt."
 
-#: includes/trait_wp_facebook_importer_defaults.php:246
+#: includes/trait_wp_facebook_importer_defaults.php:255
 msgid "Really delete all posts?"
 msgstr "Alle Beiträge wirklich löschen?"
 
-#: includes/trait_wp_facebook_importer_defaults.php:247
-#: includes/trait_wp_facebook_importer_defaults.php:258
+#: includes/trait_wp_facebook_importer_defaults.php:256
+#: includes/trait_wp_facebook_importer_defaults.php:267
 msgid "Delete import really?"
 msgstr "Import wirklich löschen?"
 
-#: includes/trait_wp_facebook_importer_defaults.php:249
+#: includes/trait_wp_facebook_importer_defaults.php:258
 msgid "Delete posts"
 msgstr "Beiträge löschen"
 
-#: includes/trait_wp_facebook_importer_defaults.php:250
+#: includes/trait_wp_facebook_importer_defaults.php:259
 msgid "Delete posts?"
 msgstr "Beiträge löschen?"
 
-#: includes/trait_wp_facebook_importer_defaults.php:251
+#: includes/trait_wp_facebook_importer_defaults.php:260
 msgid ""
 "All posts and events will be irrevocably deleted! The deletion can not be "
 "undone."
@@ -844,21 +886,21 @@ msgstr ""
 "Alle Beiträge und Veranstaltungen werden unwiderruflich gelöscht! Das "
 "löschen kann nicht rückgängig gemacht werden."
 
-#: includes/trait_wp_facebook_importer_defaults.php:252
+#: includes/trait_wp_facebook_importer_defaults.php:261
 msgid "All posts will be irrevocably deleted! The deletion can not be undone."
 msgstr ""
 "Alle Beiträge werden unwiderruflich gelöscht! Das löschen kann nicht "
 "rückgängig gemacht werden."
 
-#: includes/trait_wp_facebook_importer_defaults.php:253
+#: includes/trait_wp_facebook_importer_defaults.php:262
 msgid "Delete all events"
 msgstr "Alle Events löschen"
 
-#: includes/trait_wp_facebook_importer_defaults.php:254
+#: includes/trait_wp_facebook_importer_defaults.php:263
 msgid "Really delete all events?"
 msgstr "Alle Events wirklich löschen?"
 
-#: includes/trait_wp_facebook_importer_defaults.php:255
+#: includes/trait_wp_facebook_importer_defaults.php:264
 msgid "All events will be irrevocably deleted! The deletion can not be undone."
 msgstr ""
 "Alle Events werden unwiderruflich gelöscht! Das löschen kann nicht "
@@ -885,6 +927,9 @@ msgstr "Unbekannter Update-Checker-Status \"%s\""
 #: includes/update-checker/yahnis-elsts/plugin-update-checker/Puc/v4p11/Vcs/PluginUpdateChecker.php:98
 msgid "There is no changelog available."
 msgstr "Es ist kein Change Log verfügbar."
+
+#~ msgid "Synchronisation successful"
+#~ msgstr "Synchronisierung erfolgreich"
 
 #, php-format
 #~ msgid "every %d minutes"

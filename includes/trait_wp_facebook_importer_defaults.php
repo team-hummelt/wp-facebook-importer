@@ -15,6 +15,7 @@ trait WP_Facebook_Importer_Defaults {
     // DB-Tables
     protected  string $table_api_settings = 'fb_api_settings';
     protected  string $table_api_imports = 'fb_api_imports';
+    protected  string $table_api_sync_log = 'fb_api_sync_log';
     //SETTINGS DEFAULT OBJECT
     protected array $plugin_default_values;
     //API Options
@@ -216,7 +217,7 @@ trait WP_Facebook_Importer_Defaults {
                 'Imported' => __('Imported','wp-facebook-importer'),
                 'formular_headline_update'=> __('Settings for import','wp-facebook-importer'),
                 'formular_headline_new'=> __('Create new import','wp-facebook-importer'),
-
+                'btn_cronjob_log' => __('Display cronjob log', 'wp-facebook-importer'),
                 //ToolTip
                 'tooltip_reset_sync' => __('The date of the last synchronization is reset.','wp-facebook-importer')
 
@@ -225,11 +226,19 @@ trait WP_Facebook_Importer_Defaults {
                 'Designation' => __('Designation', 'wp-facebook-importer'),
 
                 'Max_Import' => __('Max. Import', 'wp-facebook-importer'),
+                'Import' => __('Import', 'wp-facebook-importer'),
                 'User_ID' => __('User ID', 'wp-facebook-importer'),
                 'Page_ID' => __('Page ID', 'wp-facebook-importer'),
                 'User_active' => __('User active', 'wp-facebook-importer'),
                 'Post_Category' => __('Post Category', 'wp-facebook-importer'),
                 'Event_Category' => __('Event Category', 'wp-facebook-importer'),
+                'Start_Post' => __('Start post', 'wp-facebook-importer'),
+                'End_Post' => __('End post', 'wp-facebook-importer'),
+                'Start_Event' => __('Start event', 'wp-facebook-importer'),
+                'End_Event' => __('End event', 'wp-facebook-importer'),
+                'Event_Status' => __('Event status', 'wp-facebook-importer'),
+                'Post_Status' => __('Post status', 'wp-facebook-importer'),
+                'delete' => __('delete', 'wp-facebook-importer'),
                 'Edit' => __('Edit', 'wp-facebook-importer')
 
             ],

@@ -333,7 +333,7 @@ class WP_Facebook_Importer_Database
      * @param int $id
      * @param string $type
      */
-    public function delete_facebook_posts(int $id, string  $type): void
+    public function delete_facebook_posts(int $id, string $type): void
     {
         $posts = get_posts(array(
             'post_type' => 'wp_facebook_posts',
@@ -490,7 +490,7 @@ class WP_Facebook_Importer_Database
      * @param bool $getPosts
      * @return object
      */
-    public function get_wp_facebook_import_count(int  $importId,string $post_type,bool $getPosts=false): object
+    public function get_wp_facebook_import_count(int $importId, string $post_type, bool $getPosts = false): object
     {
         $return = new stdClass();
         $return->status = false;
@@ -520,7 +520,7 @@ class WP_Facebook_Importer_Database
             return $return;
         }
 
-        if($getPosts){
+        if ($getPosts) {
             $return->record = $posts;
         }
         $return->status = true;
@@ -719,14 +719,82 @@ class WP_Facebook_Importer_Database
         );
     }
 
+
+    /**
+     * @param $args
+     * @param bool $isFetch
+     * @return object
+     */
+    public function get_plugin_syn_log($args, bool $isFetch = true): object
+    {
+        $record = new stdClass();
+        $record->status = false;
+        $record->count = 0;
+        $isFetch ? $fetch = 'get_results' : $fetch = 'get_row';
+        global $wpdb;
+        $table = $wpdb->prefix . $this->table_api_sync_log;
+        $table_import = $wpdb->prefix . $this->table_api_imports;
+        $results = $wpdb->$fetch("SELECT sl.*,
+         DATE_FORMAT(sl.created_at, '%d.%m.%Y %H:%i') AS created,
+         im.bezeichnung,im.post_term,im.event_term   
+        FROM $table sl 
+        LEFT JOIN $table_import im ON sl.import_id = im.id
+        {$args} ");
+        if (!$results) {
+            return $record;
+        }
+        $isFetch ? $record->count = count($results) : $record->count = 1;
+        $record->record = $results;
+        $record->status = true;
+        return $record;
+    }
+
+    /**
+     * @param $record
+     */
+    public function set_plugin_syn_log($record)
+    {
+        global $wpdb;
+        $table = $wpdb->prefix . $this->table_api_sync_log;
+        $wpdb->insert(
+            $table,
+            array(
+                'import_id' => $record->import_id,
+                'start_post' => $record->start_post,
+                'end_post' => $record->end_post,
+                'start_event' => $record->start_event,
+                'end_event' => $record->end_event,
+                'post_status' => $record->post_status,
+                'event_status' => $record->event_status,
+            ),
+            array('%d', '%s', '%s', '%s', '%s', '%d', '%d')
+        );
+
+    }
+
+    /**
+     * @param int $id
+     */
+    public function delete_plugin_syn_log(int $id): void
+    {
+        global $wpdb;
+        $table = $wpdb->prefix . $this->table_api_sync_log;
+        $wpdb->delete(
+            $table,
+            array(
+                'id' => $id),
+            array('%d')
+        );
+    }
+
     public function facebook_importer_jal_install()
     {
         require_once ABSPATH . 'wp-admin/includes/upgrade.php';
         global $wpdb;
-        $table_name = $wpdb->prefix . $this->table_api_settings;
         $charset_collate = $wpdb->get_charset_collate();
-
-        $sql = "CREATE TABLE $table_name (
+        if (!$this->if_fb_import_table_exists($this->table_api_settings)) {
+            $table_name = $wpdb->prefix . $this->table_api_settings;
+            $sql = "CREATE TABLE $table_name (
             `id` varchar(12) NOT NULL,
             `app_id` varchar(255) NOT NULL,
             `app_secret` varchar (255) NOT NULL,
@@ -735,12 +803,14 @@ class WP_Facebook_Importer_Database
             `max_sync` tinyint(1) NOT NULL DEFAULT 2,
             `sync_interval` varchar(24) NOT NULL DEFAULT 'daily', 
             `last_api_sync` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-       PRIMARY KEY (id)
-     ) $charset_collate;";
-        dbDelta($sql);
+            PRIMARY KEY (id)) 
+            $charset_collate;";
+            dbDelta($sql);
+        }
 
-        $table_name = $wpdb->prefix . $this->table_api_imports;
-        $sql = "CREATE TABLE $table_name (
+        if (!$this->if_fb_import_table_exists($this->table_api_imports)) {
+            $table_name = $wpdb->prefix . $this->table_api_imports;
+            $sql = "CREATE TABLE $table_name (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `aktiv` tinyint(1) NOT NULL,
             `bezeichnung` varchar(255) NOT NULL UNIQUE,
@@ -757,8 +827,41 @@ class WP_Facebook_Importer_Database
             `from_sync` varchar (255) NULL,
             `until_sync` varchar (255) NULL,
             `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-       PRIMARY KEY (id)
-     ) $charset_collate;";
-        dbDelta($sql);
+            PRIMARY KEY (id)) 
+            $charset_collate;";
+            dbDelta($sql);
+        }
+
+        if (!$this->if_fb_import_table_exists($this->table_api_sync_log)) {
+            $table_name = $wpdb->prefix . $this->table_api_sync_log;
+            $sql = "CREATE TABLE $table_name (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `import_id` int(11) NOT NULL,
+            `start_post` varchar (14)NOT NULL DEFAULT '',
+            `end_post` varchar (14)NOT NULL DEFAULT '',
+            `start_event` varchar (14)NOT NULL DEFAULT '',
+            `end_event` varchar (14)NOT NULL DEFAULT '',
+            `post_status` tinyint(1) NOT NULL DEFAULT 1,
+            `event_status` tinyint(1) NOT NULL DEFAULT 1,
+            `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (id)) 
+            $charset_collate;";
+            dbDelta($sql);
+        }
+    }
+
+    /**
+     * @param $table
+     * @return bool
+     */
+    private function if_fb_import_table_exists($table): bool
+    {
+        global $wpdb;
+        $checkTable = $wpdb->prefix . $table;
+        $ifTable = $wpdb->get_var("SHOW TABLES LIKE '{$checkTable}'");
+        if ($ifTable) {
+            return true;
+        }
+        return false;
     }
 }
